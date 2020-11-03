@@ -1,3 +1,4 @@
+// 호눅스의 라이브 코딩 - 구구단입니다.
 import java.util.Scanner;
 
 public class Gugudan_answer {
@@ -17,5 +18,6 @@ public class Gugudan_answer {
             System.out.println(("==========\n"));
         }
         s.close();
+
     }
 }
