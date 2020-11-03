@@ -2,7 +2,7 @@ import java.util.Scanner; // java에 내장되어 있는 클래스 중 하나.
 // Scanner : 사용자에게 값을 입력받을 수 있는 기능 제공.
 
 public class gugudan {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         System.out.println("구구단을 출력합니다. 시작과 끝 단을 띄어쓰기로 구분해 입력해 주세요 : ");
         Scanner scanner = new Scanner(System.in);
