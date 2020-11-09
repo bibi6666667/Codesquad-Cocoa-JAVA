@@ -25,17 +25,17 @@ public class BJ_8958 {
         for (int i = 0; i < testCaseArr.length; i++) { // 기본점수 채점. (+1)
             if (testCaseArr[i].equals("O")) {
                 score++;
-                for (int j = 1; j < i; j++) { // 보너스점수 채점. (+연속해 맞은만큼)
-                    if (testCaseArr[i - j].equals("O")) {
-                        score = score + 1;
-                    }
-                    if (i == 0) {
-                        break;
-                    }
-                    if (testCaseArr[i - j].equals("X")) {
-                        break;
-                    }
-                }
+//                for (int j = 1; j < i; j++) { // 보너스점수 채점. (+연속해 맞은만큼)
+//                    if (testCaseArr[i - j].equals("O")) {
+//                        score = score + 1;
+//                    }
+//                    if (i == 0) {
+//                        break;
+//                    }
+//                    if (testCaseArr[i - j].equals("X")) {
+//                        break;
+//                    }
+//                }
                 System.out.println(i+"번째 채점결과 : " + score);
             }
         }
