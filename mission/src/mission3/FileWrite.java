@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FileWrite {
     public static void main(String[] args) throws IOException{
-        // 파일을 생성하기 위해 FileOutputStream 클래스 사용해 output 객체를 생성.
+        // 파일을 생성하기 위해 FileWriter 클래스 사용해 fw 객체를 생성.
         FileWriter fw = new FileWriter("c:/out.txt");
         // 파일에 넣고 싶은 내용 작성 : .write(내용);
         for(int i=1; i<11; i++) {

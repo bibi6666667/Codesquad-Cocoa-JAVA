@@ -2,7 +2,8 @@ package mission3;
 // 'txt 파일 출력(데이터 읽어오기)' 테스트용 파일입니다.
 
 import java.io.BufferedReader;
-import java.io.FileReader; // BufferedReader와 FileReader를 조합해 사용하면 txt파일을 한 줄씩 읽을 수 있다.
+import java.io.FileReader;
+// BufferedReader와 FileReader를 조합해 사용하면 txt파일을 한 줄씩 읽을 수 있다.
 import java.io.IOException;
 
 
