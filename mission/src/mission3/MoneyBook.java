@@ -10,7 +10,8 @@ public class MoneyBook {
         moneyBook.loginHome();
     }
 
-    public static String ID;
+    public static String ID; // 현재 로그인한 ID. .login() -> ID -> DB
+
     public static Scanner sc = new Scanner(System.in);
 
 
@@ -37,13 +38,12 @@ public class MoneyBook {
     }
 
     public String[] register(){
-
         // 입력받기
         System.out.println("--회원가입--");
-        System.out.println("아이디를 입력하세요");
+        System.out.println("아이디를 입력하세요 (문자)");
         System.out.print(">");
         String id = sc.next();
-        System.out.println("비밀번호를 입력하세요");
+        System.out.println("비밀번호를 입력하세요 (문자)");
         System.out.print(">");
         String pw = sc.next();
         // DB에 추가하기
@@ -56,10 +56,10 @@ public class MoneyBook {
         Scanner sc = new Scanner(System.in);
         // 입력받기
         System.out.println("--로그인--");
-        System.out.println("아이디를 입력하세요");
+        System.out.println("아이디를 입력하세요 (문자)");
         System.out.print(">");
         String id = sc.next();
-        System.out.println("비밀번호를 입력하세요");
+        System.out.println("비밀번호를 입력하세요 (문자)");
         System.out.print(">");
         String pw = sc.next();
         ID = id;
@@ -68,6 +68,7 @@ public class MoneyBook {
         boolean checkResult = db.checkMembersDB(IdPwArr);
         if (checkResult == true) {
             // true이면 가계부 데이터에 접근
+            System.out.println("가계부에 오신 것을 환영합니다.");
             moneybookHome();
         }
         if (checkResult == false) {
@@ -89,7 +90,7 @@ public class MoneyBook {
 /////////////////////////////////////////////
 
     public void moneybookHome(){
-        System.out.println("[HOME] 가계부에 오신 것을 환영합니다. 실행을 원하는 숫자를 눌러주세요.");
+        System.out.println("[HOME] 실행을 원하는 숫자를 눌러주세요.");
         System.out.println("0 : 내용 작성, 1 : 내용 조회, 2 : 내용 수정, 3 : 내용 삭제, 4 : 종료");
         System.out.println("다른 숫자를 누르면 로그아웃 후 로그인 화면으로 돌아갑니다.");
         System.out.print(">");
@@ -114,6 +115,8 @@ public class MoneyBook {
                 loginHome();
         }
     }
+
+    // 종료 누르면 종료 직전에 txt파일에 올리고 끝내기. (최종결과만 반영)
 
     public void create() {
 
