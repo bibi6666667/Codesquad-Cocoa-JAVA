@@ -21,18 +21,28 @@ public class DB {
 
     Scanner sc = new Scanner(System.in);
 
-    public void writer(String[] newAccount) {
+    public void appendWriter(String newAccount) {
         try { // 일반적인 경우 실행 구문
             FileWriter fileWriter = new FileWriter("C:\\Users\\rnala\\OneDrive\\바탕 화면\\bibi\\Codesquad-Cocoa-JAVA\\mission\\src\\mission3\\MoneyBookDB.txt", true);
-            String input = Arrays.toString(newAccount) + "\r\n"; //배열을 문자열로 형변환?
-
-            //fileWriter.write();
+            String input = newAccount + "\r\n";
             fileWriter.write(input);
             fileWriter.close();
         } catch (IOException e) { // 오류 발생시 잡는 구문
             e.printStackTrace();
         }
     }
+
+    public void overWriter(String newAccount) {
+        try { // 일반적인 경우 실행 구문
+            FileWriter fileWriter = new FileWriter("C:\\Users\\rnala\\OneDrive\\바탕 화면\\bibi\\Codesquad-Cocoa-JAVA\\mission\\src\\mission3\\MoneyBookDB.txt");
+            String input = newAccount + "\r\n";
+            fileWriter.write(input);
+            fileWriter.close();
+        } catch (IOException e) { // 오류 발생시 잡는 구문
+            e.printStackTrace();
+        }
+    }
+
 
     public void reader() {
         try { // 일반적인 경우 실행 구문
@@ -57,7 +67,7 @@ public class DB {
         String pw = newIdPwArr[1];
         IdPwDB.put(id, pw);
         System.out.println(id + "," + pw + "로 가입이 완료되었습니다");
-        System.out.println("현재 회원 목록 : " + IdPwDB);
+        // System.out.println("현재 회원 목록 : " + IdPwDB);
         System.out.println("로그인으로 이동합니다.");
         moneyBook.login();
     }
@@ -87,29 +97,27 @@ public class DB {
     // (1) Create 생성
     public void createAccountDB() {
         // 날짜, 적요, 수입, 지출 입력받기
-        System.out.println("--가계부를 작성합니다--");
+        System.out.println("----------가계부를 작성합니다----------");
         System.out.println("가계부에 새 내역을 작성합니다. 날짜, 설명, 수입, 지출 순으로 입력해 주세요");
-        System.out.println("날짜를 입력해 주세요(연,월,일의 8자리 숫자로 입력)");
+        System.out.println("'날짜'를 입력해 주세요(연,월,일의 8자리 숫자로 입력)");
         System.out.print(">");
         String date = sc.next();
         sc.nextLine(); // 개행문자 제거
-        System.out.println("수입/지출에 대한 간단한 설명을 입력해 주세요");
+        System.out.println("수입/지출에 대한 간단한 '설명'을 입력해 주세요");
         System.out.print(">");
-        String descript = sc.nextLine(); // 설명은 띄어쓰기 무시
-        System.out.println("수입이 얼마였는지 숫자로 입력해 주세요");
+        String descript = sc.nextLine();
+        System.out.println("'수입'이 얼마였는지 숫자로 입력해 주세요");
         System.out.print(">");
         String income = sc.next();
-        System.out.println("지출은 얼마였는지 숫자로 입력해 주세요");
+        System.out.println("'지출'은 얼마였는지 숫자로 입력해 주세요");
         System.out.print(">");
         String expend = sc.next();
-        // 순번 추가
-        String number = numbering();
-        // 회원명 추가
-        String user = MoneyBook.ID;
+        String number = numbering();// 순번 추가
+        String user = MoneyBook.ID;// 회원명 추가
         // 저장
-        String[] anAccount = new String[]{number, date, descript, income, expend, user};
-        writer(anAccount);
-        System.out.println(Arrays.toString(anAccount) + " 로 저장되었습니다.");
+        String anAccount = number + "/" + date + "/" + descript + "/" + income + "/" + expend + "/" + user;
+        appendWriter(anAccount);
+        System.out.println("👉" + number + "번) 날짜 : " + date + ", 설명 : " + descript + ", 수입 : " + income + ",지출 : " + expend + " 로 저장되었습니다.");
         System.out.println("HOME으로 돌아갑니다.");
         moneyBook.moneybookHome();
     }
@@ -138,32 +146,168 @@ public class DB {
 
     // (2) Read 조회 (회원명은 출력하지 않음)
     public void readAccountDB() {
-        System.out.println("--가계부를 읽어옵니다--");
-        System.out.println("번호 | 날짜 | 내용 | 수입 | 지출 | 아이디");
-        // AccountDB에서 읽어오기
+        System.out.println("----------가계부를 불러옵니다----------");
+        System.out.println("번호 | 날짜 | 설명 | 수입 | 지출 | 아이디");
         reader(); // 아이디 = ID 인 것만 읽어오기 로 발전시키기.
-        // (2-1) 잔액 계산결과 추가
-        // System.out.println("현재 잔고는 " + "원 입니다.");
+        System.out.println("현재 잔고는 " + calBudget() + "원 입니다.");// (2-1) 잔고 계산결과
         moneyBook.moneybookHome();
 
     }
-    // (2-1) 잔액 계산, 출력
+
+    // (2-1) 잔고 계산, 출력
+    public String calBudget() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader("C:\\Users\\rnala\\OneDrive\\바탕 화면\\bibi\\Codesquad-Cocoa-JAVA\\mission\\src\\mission3\\MoneyBookDB.txt"));
+            String moneyBookListStr = new String();
+            while (true) {
+                String line = bufferedReader.readLine();
+                if (line == null) break;
+                moneyBookListStr = moneyBookListStr + line + ",";
+            }
+            bufferedReader.close();
+            // 수입,지출 찾아 계산
+            String[] moneyBookListArr = moneyBookListStr.split(","); // 한 항목씩 나누어 배열로 저장
+            // 배열의 0번째 요소부터 n번쨰 요소까지 가져와서 /기준으로 split. [3]은 income, [4]는 expend
+            int allIncome = 0;
+            int allExpend = 0;
+            for (int i = 1; i < moneyBookListArr.length; i++) {
+                String calListElement = moneyBookListArr[i];
+                String[] elements = calListElement.split("/");
+                allIncome += Integer.parseInt(elements[3]);
+                allExpend += Integer.parseInt(elements[4]);
+            }
+            int budget = allIncome - allExpend;
+            return Integer.toString(budget);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // (3) Update 수정
     public void updateAccountDB() {
-        System.out.println("--가계부를 수정합니다--");
-        // AccountDB에서 수정하기
+        System.out.println("----------가계부를 수정합니다----------");
+        try { // 전체 라인 가져오기 - 고칠라인 찾기 - 고치기 - 저장. (원래 순서 보존을 위해)
+            System.out.println("수정하고 싶은 내역의 번호를 입력하세요.");
+            String fixNum = sc.next();
+            System.out.println("<< 수정할 항목을 입력하세요 : 1.날짜, 2.설명, 3.수입, 4.지출 >>");
+            int input = sc.nextInt();
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader("C:\\Users\\rnala\\OneDrive\\바탕 화면\\bibi\\Codesquad-Cocoa-JAVA\\mission\\src\\mission3\\MoneyBookDB.txt"));
+            String moneyBookListStr = new String();
+            while (true) {
+                String line = bufferedReader.readLine();
+                if (line == null) break;
+                moneyBookListStr = moneyBookListStr + line + ",";
+            }
+            bufferedReader.close();
+            String[] moneyBookListArr = moneyBookListStr.split(","); // 한 라인씩 나누어 배열로 저장
+            overWriter("가계부"); // txt파일비우기 : 고쳐서 전부 새로 쓸 것이므로. null값으로 했었는데 오류남..;
+
+            switch (input) {
+                case 1://날짜수정 [1]
+                    System.out.println("수정할 날짜를 입력하세요 (연,월,일의 8자리 숫자)");
+                    String dateToFix = sc.next();
+                    for (int i = 1; i < moneyBookListArr.length; i++) {
+                        String aLine = moneyBookListArr[i];
+                        String[] elements = aLine.split("/"); //elements [번호,날짜,설명..]배열
+                        if (elements[0].equals(fixNum)) { //번호가 일치하면 (문자열이므로 .equals)
+                            elements[1] = dateToFix; // 입력한 날짜로 고치기
+                        }
+                        aLine = String.join("/", elements);
+                        appendWriter(aLine);
+                    }
+                    System.out.println("수정이 완료되었습니다.");
+                    break;
+                case 2: //설명수정 [2]
+                    System.out.println("수정할 설명을 입력하세요");
+                    String detailToFix = sc.next();
+                    for (int i = 1; i < moneyBookListArr.length; i++) {
+                        String aLine = moneyBookListArr[i];
+                        String[] elements = aLine.split("/"); //elements [번호,날짜,설명..]배열
+                        if (elements[0].equals(fixNum)) { //번호가 일치하면 (문자열이므로 .equals)
+                            elements[2] = detailToFix; // 입력한 설명으로 고치기
+                        }
+                        aLine = String.join("/", elements);
+                        appendWriter(aLine);
+                    }
+                    System.out.println("수정이 완료되었습니다.");
+                    break;
+                case 3://수입수정 [3]
+                    System.out.println("수정할 수입을 입력하세요");
+                    String incomeToFix = sc.next();
+                    for (int i = 1; i < moneyBookListArr.length; i++) {
+                        String aLine = moneyBookListArr[i];
+                        String[] elements = aLine.split("/"); //elements [번호,날짜,설명..]배열
+                        if (elements[0].equals(fixNum)) { //번호가 일치하면 (문자열이므로 .equals)
+                            elements[3] = incomeToFix; // 입력한 설명으로 고치기
+                        }
+                        aLine = String.join("/", elements);
+                        appendWriter(aLine);
+                    }
+                    System.out.println("수정이 완료되었습니다.");
+                    break;
+                case 4://지출수정[4]
+                    System.out.println("수정할 수입을 입력하세요");
+                    String expendToFix = sc.next();
+                    for (int i = 1; i < moneyBookListArr.length; i++) {
+                        String aLine = moneyBookListArr[i];
+                        String[] elements = aLine.split("/"); //elements [번호,날짜,설명..]배열
+                        if (elements[0].equals(fixNum)) { //번호가 일치하면 (문자열이므로 .equals)
+                            elements[4] = expendToFix; // 입력한 설명으로 고치기
+                        }
+                        aLine = String.join("/", elements);
+                        appendWriter(aLine);
+                    }
+                    System.out.println("수정이 완료되었습니다.");
+                    break;
+                default:
+                    System.out.println("지정되지 않은 숫자를 입력했습니다. HOME으로 돌아갑니다.");
+                    moneyBook.moneybookHome();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println("HOME으로 돌아갑니다.");
         moneyBook.moneybookHome();
     }
 
     // (4) Delete 삭제
     public void deleteAccountDB() {
-        System.out.println("D-가계부 삭제하기");
-        // AccountDB에서 수정하기
+        System.out.println("----------가계부를 삭제합니다----------");
+        System.out.println("삭제하고 싶은 내역의 번호를 입력하세요.");
+        String delNum = sc.next();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(
+                    new FileReader("C:\\Users\\rnala\\OneDrive\\바탕 화면\\bibi\\Codesquad-Cocoa-JAVA\\mission\\src\\mission3\\MoneyBookDB.txt"));
+            String moneyBookListStr = new String();
+            while (true) {
+                String line = bufferedReader.readLine();
+                if (line == null) break;
+                moneyBookListStr = moneyBookListStr + line + ",";
+            }
+            bufferedReader.close();
+            String[] moneyBookListArr = moneyBookListStr.split(","); // 한 라인씩 나누어 배열로 저장
+            overWriter("가계부"); // txt파일비우기 : 전부 지운 다음 나머지 내역들은 그대로 다시 작성
+            for (int i = 1; i < moneyBookListArr.length; i++) {
+                String aLine = moneyBookListArr[i];
+                String[] elements = aLine.split("/"); //elements [번호,날짜,설명..]배열
+                if (elements[0].equals(delNum)) { //번호가 일치하면 (문자열이므로 .equals)
+                    System.out.println("지울 데이터 :" + aLine);
+                    continue;
+                }
+                aLine = String.join("/", elements);
+                appendWriter(aLine);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("삭제가 완료되었습니다.");
         System.out.println("HOME으로 돌아갑니다.");
         moneyBook.moneybookHome();
     }
-
 
 }

@@ -18,10 +18,11 @@ public class MoneyBook {
     // 매 선택마다 home, 종료 버튼 추가하기. (로그인 홈 / 가계부 목록)
     public void loginHome() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("== 가계부입니다 ==");
-        System.out.println("아무 숫자나 입력해 로그인 하세요.");
-        System.out.println("처음이라면, 0 을 입력해 회원가입으로 이동합니다.");
-        System.out.println("4를 누르면 종료됩니다.");
+        System.out.println("*=========[가계부]=========*");
+        System.out.println("==========[Login]==========");
+        System.out.println("- 아무 숫자나 입력해 로그인 하세요.");
+        System.out.println("- 처음이라면, 0 을 입력해 회원가입으로 이동합니다.");
+        System.out.println("- 4를 입력하면 종료됩니다.");
         System.out.print(">");
         int inputNum = sc.nextInt();
         switch (inputNum) {
@@ -32,14 +33,14 @@ public class MoneyBook {
                 System.out.println("또 오세요!");
                 break;
             default :  // 로그인
-                login(); // Login.java 연결이 안됨..
+                login();
                 break;
         }
     }
 
     public String[] register(){
         // 입력받기
-        System.out.println("--회원가입--");
+        System.out.println("----------회원가입----------");
         System.out.println("아이디를 입력하세요 (문자)");
         System.out.print(">");
         String id = sc.next();
@@ -55,7 +56,7 @@ public class MoneyBook {
     public String[] login(){
         Scanner sc = new Scanner(System.in);
         // 입력받기
-        System.out.println("--로그인--");
+        System.out.println("----------로그인----------");
         System.out.println("아이디를 입력하세요 (문자)");
         System.out.print(">");
         String id = sc.next();
@@ -68,12 +69,12 @@ public class MoneyBook {
         boolean checkResult = db.checkMembersDB(IdPwArr);
         if (checkResult == true) {
             // true이면 가계부 데이터에 접근
-            System.out.println("가계부에 오신 것을 환영합니다.");
+            System.out.println("✨ 가계부에 오신 것을 환영합니다 ✨");
             moneybookHome();
         }
         if (checkResult == false) {
             // false이면 다시 로그인 또는 회원가입
-            System.out.println("아이디 또는 비밀번호가 일치하지 않습니다. ");
+            System.out.println("⚠ 아이디 또는 비밀번호가 일치하지 않습니다. ");
             System.out.println("아무 숫자나 눌러 재시도하거나, 0을 눌러 회원가입을 하세요");
             System.out.print(">");
             int input = sc.nextInt();
@@ -90,9 +91,9 @@ public class MoneyBook {
 /////////////////////////////////////////////
 
     public void moneybookHome(){
-        System.out.println("[HOME] 실행을 원하는 숫자를 눌러주세요.");
-        System.out.println("0 : 내용 작성, 1 : 내용 조회, 2 : 내용 수정, 3 : 내용 삭제, 4 : 종료");
-        System.out.println("다른 숫자를 누르면 로그아웃 후 로그인 화면으로 돌아갑니다.");
+        System.out.println("==========[HOME]==========");
+        System.out.println("실행을 원하는 숫자를 입력하세요.");
+        System.out.println("<< 0 : 내용 작성, 1 : 내용 조회, 2 : 내용 수정, 3 : 내용 삭제, 4 : 종료 >>");
         System.out.print(">");
         int inputNum = sc.nextInt();
         switch(inputNum) {
@@ -112,6 +113,7 @@ public class MoneyBook {
                 System.out.println("또 오세요!");
                 return;
             default:
+                System.out.println("지정되지 않은 숫자를 입력했습니다. 로그인 화면으로 되돌아갑니다.");
                 loginHome();
         }
     }
