@@ -1,4 +1,4 @@
-package mission3;
+package mission3and4;
 // 'txt 파일 입력(데이터 넣기)' 테스트용 파일입니다.
 
 import java.io.FileWriter;

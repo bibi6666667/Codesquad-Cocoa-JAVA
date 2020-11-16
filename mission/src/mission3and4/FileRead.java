@@ -1,4 +1,4 @@
-package mission3;
+package mission3and4;
 // 'txt 파일 출력(데이터 읽어오기)' 테스트용 파일입니다.
 
 import java.io.BufferedReader;

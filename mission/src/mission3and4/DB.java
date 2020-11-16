@@ -1,6 +1,5 @@
-package mission3;
+package mission3and4;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.FileWriter;
