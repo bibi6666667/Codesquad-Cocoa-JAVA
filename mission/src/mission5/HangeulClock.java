@@ -2,19 +2,31 @@ package mission5;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HangeulClock {
     public static void main(String[] args) {
         HangeulClock hangeulClock = new HangeulClock();
-        System.out.println("💫한글시계 따라 만들기💫");
-        String[][] clockResult = hangeulClock.showHourMinute();
-        hangeulClock.printHangeulClock(clockResult);
+        Timer scheduler = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // hangeulClock.clearScreen(); 동작하지 않음..ㅜ
+                String[][] clockResult = hangeulClock.showHourMinute();
+                hangeulClock.printHangeulClock(clockResult);
+            }
+        };
+        scheduler.scheduleAtFixedRate(task, 1000, 60000); // 1초 뒤 1분마다 반복실행
     }
+
+//    public void clearScreen() {
+//        for (int i = 0; i < 80; i++)
+//            System.out.println("");
+//    }
 
     public static String[][] showBackground() {
         String[][] background = new String[6][6];
-        // 값 넣기
         background[0] = new String[]{"✨", "✨", "✨", "✨", "✨", "✨"};
         background[1] = new String[]{"✨", "✨", "✨", "✨", "✨", "✨"};
         background[2] = new String[]{"✨", "✨", "✨", "✨", "✨", "✨"};
@@ -37,8 +49,14 @@ public class HangeulClock {
 
     public void printHangeulClock(String[][] clockFormat) {
         String[][] HangeulClock = clockFormat;
+        System.out.println("💫한글시계 따라 만들기💫");
         for (int i = 0; i < 6; i++) {
-            System.out.println(Arrays.toString(HangeulClock[i]));
+            System.out.print(" " + HangeulClock[i][0] + " ");
+            System.out.print(" " + HangeulClock[i][1] + " ");
+            System.out.print(" " + HangeulClock[i][2] + " ");
+            System.out.print(" " + HangeulClock[i][3] + " ");
+            System.out.print(" " + HangeulClock[i][4] + " ");
+            System.out.println(" " + HangeulClock[i][5] + " ");
         }
     }
 
@@ -46,14 +64,11 @@ public class HangeulClock {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
         String currentTime = dateTime.format(formatter);
+        // System.out.println(currentTime); 시간출력
         String[] timeArr = currentTime.split(":");
-        String hourMinute = String.join(":",timeArr[0], timeArr[1]);
+        String hourMinute = String.join(":", timeArr[0], timeArr[1]);
         return hourMinute;
     }
-
-    // 현재 시간의 시, 분 가져오기.
-    // 시 -> 그 시에 맞는 배열 [][] 글자 표시.
-    // 분 -> 그 분에 맞는 배열 [][] 글자 표시.
 
     public String[][] showHourMinute() {
         String hourMinute = getCurrentTime();
@@ -61,17 +76,16 @@ public class HangeulClock {
         String[][] clockFormat = showBackground();
         String hour = hourMinute.split(":")[0]; // 시
         String minute = hourMinute.split(":")[1]; // 분
-        System.out.println(hourMinute);
         switch (hourMinute) {
-            case "00:00" :
+            case "00:00":
                 clockFormat[3][0] = HangeulData[3][0];//자
                 clockFormat[4][0] = HangeulData[4][0];//정
                 break;
-            case "12:00" :
+            case "12:00":
                 clockFormat[4][0] = HangeulData[4][0];//정
                 clockFormat[5][0] = HangeulData[5][0];//오
                 break;
-            default :
+            default:
                 putHangeulHours(clockFormat, HangeulData, hour);
                 putHangeulMinutes(clockFormat, HangeulData, minute);
                 break;
@@ -79,49 +93,61 @@ public class HangeulClock {
         return clockFormat;
     }
 
-    public void putHangeulHours(String[][] clockFormat, String[][] HangeulData, String hour){
+    public void putHangeulHours(String[][] clockFormat, String[][] HangeulData, String hour) {
         ///// 시
-        switch(hour) {
-            case "01" : case "13" :
+        switch (hour) {
+            case "01":
+            case "13":
                 clockFormat[0][0] = HangeulData[0][0];//한
                 break;
-            case "02" : case "14" :
+            case "02":
+            case "14":
                 clockFormat[0][1] = HangeulData[0][1];//두
                 break;
-            case "03" : case "15" :
+            case "03":
+            case "15":
                 clockFormat[0][2] = HangeulData[0][2];//세
                 break;
-            case "04" : case "16" :
+            case "04":
+            case "16":
                 clockFormat[0][3] = HangeulData[0][3];//네
                 break;
-            case "05" : case "17" :
+            case "05":
+            case "17":
                 clockFormat[0][4] = HangeulData[0][4];//다
                 clockFormat[0][5] = HangeulData[0][5];//섯
                 break;
-            case "06" : case "18" :
+            case "06":
+            case "18":
                 clockFormat[1][0] = HangeulData[1][0];//여
                 clockFormat[1][1] = HangeulData[1][1];//섯
                 break;
-            case "07" : case "19" :
+            case "07":
+            case "19":
                 clockFormat[1][2] = HangeulData[1][2];//일
                 clockFormat[1][3] = HangeulData[1][3];//곱
                 break;
-            case "08" : case "20" :
+            case "08":
+            case "20":
                 clockFormat[1][4] = HangeulData[1][4];//여
                 clockFormat[1][5] = HangeulData[1][5];//덟
                 break;
-            case "09" : case "21" :
+            case "09":
+            case "21":
                 clockFormat[2][0] = HangeulData[2][0];//아
                 clockFormat[2][1] = HangeulData[2][1];//홉
                 break;
-            case "10" : case "22" :
+            case "10":
+            case "22":
                 clockFormat[2][2] = HangeulData[2][2];//열
                 break;
-            case "11" : case "23" :
+            case "11":
+            case "23":
                 clockFormat[2][2] = HangeulData[2][2];//열
                 clockFormat[2][3] = HangeulData[2][3];//한
                 break;
-            case "12" : case "0" :
+            case "12":
+            case "0":
                 clockFormat[2][2] = HangeulData[2][2];//열
                 clockFormat[2][4] = HangeulData[2][4];//두
                 break;
@@ -129,7 +155,7 @@ public class HangeulClock {
         clockFormat[2][5] = HangeulData[2][5];//시
     }
 
-    public void putHangeulMinutes(String[][] clockFormat, String[][] HangeulData, String minute){
+    public void putHangeulMinutes(String[][] clockFormat, String[][] HangeulData, String minute) {
         /////// 분
         String minuteTen = minute.split("")[0];  // 분의 십의 자리
         String minuteOne = minute.split("")[1];  // 분의 일의 자리
@@ -158,7 +184,7 @@ public class HangeulClock {
                 break;
         }
         // 분 - 일의 자리
-        switch(minuteOne) {
+        switch (minuteOne) {
             case "1":
                 clockFormat[4][1] = HangeulData[4][1];//일
                 break;
@@ -189,6 +215,10 @@ public class HangeulClock {
             case "0":
                 break;
         }
-        clockFormat[5][5] = HangeulData[5][5];//분
+        if (minuteTen.equals("0") && minuteOne.equals("0")) {
+            return;
+        } else {
+            clockFormat[5][5] = HangeulData[5][5];//분
+        }
     }
 }
