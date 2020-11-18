@@ -1,4 +1,4 @@
-// 피드백 ) score는 0보다 크거나 같고, 100보다 작거나 같은 정수!!
+package mission1;// 피드백 ) score는 0보다 크거나 같고, 100보다 작거나 같은 정수!!
 import java.util.Scanner;
 
 public class BJ_if_9498 {

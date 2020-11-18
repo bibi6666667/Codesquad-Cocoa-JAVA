@@ -1,3 +1,5 @@
+package mission1;
+
 import java.util.Scanner; // java에 내장되어 있는 클래스 중 하나.
 // Scanner : 사용자에게 값을 입력받을 수 있는 기능 제공.
 

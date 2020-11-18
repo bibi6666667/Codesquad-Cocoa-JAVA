@@ -1,4 +1,4 @@
-// 한큐에 성공!
+package mission1;// 한큐에 성공!
 import java.util.Scanner;
 
 public class BJ_if_14681 {

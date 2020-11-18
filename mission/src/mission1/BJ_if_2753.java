@@ -1,3 +1,5 @@
+package mission1;
+
 import java.util.Scanner;
 
 public class BJ_if_2753 {
