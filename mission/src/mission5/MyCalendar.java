@@ -9,6 +9,26 @@ import java.util.Scanner;
 public class MyCalendar {
     static MyCalendar myCalendar = new MyCalendar();
 
+    public void starter(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("현재 달력 출력 : a , 과거 달력 출력 : z");
+        String input = scanner.next();
+        switch (input) {
+            case "a" :
+                buildCurrentCalendar();
+                break;
+            case "z" :
+                int year = getYear();
+                int month = getMonth();
+                buildPastCalendar(year, month);
+                break;
+            default:
+                System.out.println("잘못된 명령어입니다. 다시 입력하세요");
+                starter();
+                break;
+        }
+    }
+
     public int getYear() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n👉 출력을 원하는 연도를 숫자로 입력하세요.");
