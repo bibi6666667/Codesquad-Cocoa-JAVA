@@ -1,13 +1,15 @@
 package mission5;
 
+import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class HangeulClock {
-    public static void main(String[] args) {
-        HangeulClock hangeulClock = new HangeulClock();
+    static HangeulClock hangeulClock = new HangeulClock();
+
+    public void runHanguelClock() {
         Timer scheduler = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -18,12 +20,17 @@ public class HangeulClock {
             }
         };
         scheduler.scheduleAtFixedRate(task, 1000, 60000); // 1초 뒤 1분마다 반복실행
+        System.out.println("한글시계는 1분마다 자동 업데이트됩니다. 아무 키나 입력하면 업데이트가 멈춥니다.");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        switch (input) {
+            default :
+                scheduler.cancel();
+                System.out.println("자동 업데이트를 종료합니다.");
+                break;
+        }
     }
 
-//    public void clearScreen() {
-//        for (int i = 0; i < 80; i++)
-//            System.out.println("");
-//    }
 
     public static String[][] showBackground() {
         String[][] background = new String[6][6];
