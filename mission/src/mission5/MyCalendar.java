@@ -133,18 +133,14 @@ public class MyCalendar {
 
     public void printCalendar(int year, int month, int dayMax, int dayWeek1) {
         // 월의 1일의 요일부터(dayWeek1) 1~최대일 출력.
-        System.out.println("========== " + year + "년 " + month + "월 ==========");
-        System.out.println("  일  월  화  수  목  금  토  ");
+        System.out.println("======== " + year + "년 " + month + "월 ========");
+        System.out.printf("%4s%4s%4s%4s%4s%4s%4s%n","SUN","MON","TUE","WED","THU","FRI","SAT");
+        //System.out.println("  일  월  화  수  목  금  토  ");
         for (int j = 1; j < dayWeek1; j++) {
-            System.out.print(" ✨ "); //
+            System.out.printf("%4s"," ");
         }
         for (int i = 1; i <= dayMax; i++) {
-            if (i < 10) {// 한 자리 수이면 앞에 공백 한 번 더 추가
-                System.out.print("  " + i + " ");
-            }
-            if (i >= 10) {
-                System.out.print(" " + i + " ");
-            }
+                System.out.printf("%4d", i);
             // 줄바꿈
             if ((dayWeek1 - 1 + i ) % 7 == 0) { // 공백 = (dayWeek1 - 1) + i 가 일주일 한 줄.
                 System.out.println();//줄바꿈
