@@ -1,9 +1,9 @@
 # AWT
 
 * AWT란?
-  * AWT = Abstract Window Toolkit로, 자바의 Window GUI 프로그래밍 도구이다.
+ * AWT = Abstract Window Toolkit로, 자바의 Window GUI 프로그래밍 도구이다.
 * GUI = Graphical User Interface. 그래픽 기반의 사용자 인터페이스. 사용자가 그래픽을 통해 하드웨어와 상호작용하는 환경. (마우스 등을 통해). 
-  * GUI의 요소 : 윈도우, 스크롤바, 아이콘 이미지, 버튼 등이 있다.
+ * GUI의 요소 : 윈도우, 스크롤바, 아이콘 이미지, 버튼 등이 있다.
 * GUI는 CUI (Character User Interface, 텍스트 기반의 사용자 인터페이스) 와 대조적인 개념이다.
 * AWT는 OS의 컴포넌트들을 그대로 사용한다. 따라서 AWT응용프로그램의 외형은 실행되는 OS(윈도우/iOS..)에 따라 다르게 나타난다.
 
@@ -19,13 +19,13 @@
 ## AWT 패키지
 * (`import java.awt.*;`로도 선언할 수 있다)
 * 패키지명이 `java.awt`로 시작하면 모두 AWT관련 패키지이다.
-  * `java.awt` : AWT를 이용한 GUI어플리케이션 작성에 필요한 기본적 클래스와 컴포넌트 제공.
-  * `java.awt.event` : GUI어플리케이션에서 발생하는 이벤트를 처리하는데 필요한 클래스,인터페이스 제공.
-  * `java.awt.datatransfer` : 어플리케이션 내/어플리케이션 간 데이터 전송 구현에 필요한 클래스, 인터페이스 제공.
-  * `java.awt.dnd` : 끌어놓기=드래그 앤 드롭(Drag and Drop) 구현에 필요한 클래스 제공.
-  * `java.awt.font` : 폰트와 관련된 클래스,인터페이스를 제공.
-  * `java.awt.image` : 이미지 생성, 변경에 사용되는 클래스 제공.
-  * `java.awt.print` : 출력에 관련된 클래스와 인터페이스 제공.
+ * `java.awt` : AWT를 이용한 GUI어플리케이션 작성에 필요한 기본적 클래스와 컴포넌트 제공.
+ * `java.awt.event` : GUI어플리케이션에서 발생하는 이벤트를 처리하는데 필요한 클래스,인터페이스 제공.
+ * `java.awt.datatransfer` : 어플리케이션 내/어플리케이션 간 데이터 전송 구현에 필요한 클래스, 인터페이스 제공.
+ * `java.awt.dnd` : 끌어놓기=드래그 앤 드롭(Drag and Drop) 구현에 필요한 클래스 제공.
+ * `java.awt.font` : 폰트와 관련된 클래스,인터페이스를 제공.
+ * `java.awt.image` : 이미지 생성, 변경에 사용되는 클래스 제공.
+ * `java.awt.print` : 출력에 관련된 클래스와 인터페이스 제공.
  
  - - -
 
@@ -33,11 +33,11 @@
 * 모든 컴포넌트의 조상은 Component클래스. (※예외 : 메뉴 관련 컴포넌트)
 * Component클래스의 조상은 Object클래스.
 * 컴포넌트(AWT컴포넌트) : GUI응용프로그램의 화면을 구성하는 데 사용되는, Component클래스와 그 자손 클래스들.
-  * 윈도우, 스크롤바, 버튼, 체크박스, 리스트 .. 등이 있다.
+ * 윈도우, 스크롤바, 버튼, 체크박스, 리스트 .. 등이 있다.
 1. 일반 컴포넌트 : (최상위조상 : Component). 
-  * Button, Label, Checkbox, List, Choice, Scrollbar, Dialog(대화상자요소), Frame, TextArea/TextField, FileDialog(파일열기)..
+ * Button, Label, Checkbox, List, Choice, Scrollbar, Dialog(대화상자요소), Frame, TextArea/TextField, FileDialog(파일열기)..
 2. 메뉴 컴포넌트 : (최상위조상 : MenuComponent)
-  * MenuBar, MenuItem(Menu-PopupMenu, CheckboxMenuItem) ..
+ * MenuBar, MenuItem(Menu-PopupMenu, CheckboxMenuItem) ..
  
 #### 컴포넌트의 주요 메서드
 * `Color getBackground()` : 컴포넌트의 배경색을 얻는다
@@ -72,28 +72,28 @@
 
 1. 독립적 컨테이너 : 독립적으로 사용될 수 있음 & 다른 컴포넌트 또는 종속적 컨테이너를 포함할 수 있다.
  * `Frame`
-   * 가장 일반적 컨테이너. `Window`와 모양이 같다.
-   * titlebar와 크기조절버튼, 닫기버튼이 있다.
-   * 메뉴를 추가할 수 있다.
+  * 가장 일반적 컨테이너. `Window`와 모양이 같다.
+  * titlebar와 크기조절버튼, 닫기버튼이 있다.
+  * 메뉴를 추가할 수 있다.
  * `Window`
-   * `Frame`의 조상이다.
-   * 컴포넌트를 담을 수 있는 평면공간만을 갖는다.
-   * 경계선, titlebar, 크기조절버튼, 닫기버튼 없고 메뉴 추가도 불가능.
+  * `Frame`의 조상이다.
+  * 컴포넌트를 담을 수 있는 평면공간만을 갖는다.
+  * 경계선, titlebar, 크기조절버튼, 닫기버튼 없고 메뉴 추가도 불가능.
  * `Dialog`(대화상자요소)
-   * titlebar와 닫기버튼은 있지만, 메뉴는 없다.
-   * 기본적으로 크기를 변경할 수 없다.
-   * 주로 사용자에게 메시지를 보여주거나 응답을 받는 데 사용한다.
+  * titlebar와 닫기버튼은 있지만, 메뉴는 없다.
+  * 기본적으로 크기를 변경할 수 없다.
+  * 주로 사용자에게 메시지를 보여주거나 응답을 받는 데 사용한다.
   
 2. 종속적 컨테이너 : 독립적으로 사용될 수 없음 & 다른 컨테이너에 포함되어야만 한다.
  * `Panel`
-   * 평면공간. `Frame`처럼 여러 컴포넌트를 담을 수 있으나 단독 사용은 불가능.
+  * 평면공간. `Frame`처럼 여러 컴포넌트를 담을 수 있으나 단독 사용은 불가능.
  * `ScrollPane`(스크롤페인)
-   * `Panel`과 같은 평면공간이나 단 **하나**의 컴포넌트만 포함할 수 있음.
-   * 자신보다 큰 컴포넌트가 포함되면 스크롤바가 자동으로 나타남.
+  * `Panel`과 같은 평면공간이나 단 **하나**의 컴포넌트만 포함할 수 있음.
+  * 자신보다 큰 컴포넌트가 포함되면 스크롤바가 자동으로 나타남.
   
 #### 컨테이너의 주요 메서드
 * 컨테이너에는 여러 개의 오버로딩된 add메서드들이 있다. 
-  * 따라서 컨테이너에 add메서드를 사용하는 것 만으로도 다른 컴포넌트들을 포함시킬 수 있다.
+ * 따라서 컨테이너에 add메서드를 사용하는 것 만으로도 다른 컴포넌트들을 포함시킬 수 있다.
 * 컨테이너에 포함된 컴포넌트들은 기본적으로 컨테이너의 배경색&전경색, 폰트 등의 설정을 따른다.
 
 * `Component[] getComponents()` : 컨테이너에 포함되어 있는 <U>모든</U> 컴포넌트를 얻는다.
@@ -119,22 +119,22 @@
 * titlebar, 최대화버튼, 최소화버튼, 닫기버튼을 가진다.
 * 크기 조절이 가능하다.
 * 단, 닫기 버튼은 눌러도 작동하지 않는다. 이벤트처리를 통해 기능을 따로 추가해주어야 동작한다.
-  * 실행을 멈추려면 콘솔창에서 정지를 누르거나 작업관리자에서 종료해야 한다.
+ * 실행을 멈추려면 콘솔창에서 정지를 누르거나 작업관리자에서 종료해야 한다.
 
-#### Frame의 메서드
+##### Frame의 메서드
 * `Frame(String title)` : Frame을 생성한다.
-  * `title`은 Frame의 titlebar에 보여질 text를 말한다(필수)
+ * `title`은 Frame의 titlebar에 보여질 text를 말한다(필수)
 * `String getTitle()` : titlebar에 있는 text를 얻는다.
 * `void setTitle(String title)` : titlebar의 text를 변경한다.
 * `void setState(int state)` : Frame의 상태를 변경할 수 있다. 
-  * `state`에는 두 가지 값 중 하나를 사용할 수 있다.
+ * `state`에는 두 가지 값 중 하나를 사용할 수 있다.
   1. `Frame.ICONIFIED` : Frame을 최소화 상태가 되게 한다.
   2. `Frame.NORMAL` : Frame을 정상상태(최소화 이전 상태)가 되게 한다.
 * `int getState()` : Frame의 현재 상태를 알 수 있다.
 * `void setResizable(boolean resizable)` : Frame의 크기를 변경가능(true)/불가능(false) 하게 한다.
-  * false일 때는 사용자가 Frame의 크기를 변경할 수 없다.
+ * false일 때는 사용자가 Frame의 크기를 변경할 수 없다.
  
-#### Frame 사용하기
+##### Frame 사용하기
 ```java
 import java.awt.*;
 
@@ -148,7 +148,7 @@ public class FrameTest {
 }
 ```
 
-#### Frame을 화면 중앙에 나타나게 하기
+##### Frame을 화면 중앙에 나타나게 하기
 ```java
 import java.awt.*;
 
@@ -176,13 +176,13 @@ public class FrameTest2 {
 
 * Button : 사용자가 클릭했을 때 어떤 작업이 수행되도록 할 때 사용된다.
 
-#### Button의 메서드
+##### Button의 메서드
 * `Button(String label)` : 지정된 label을 가진 Button을 생성한다.
-  * `label` : Button위에 나타날 text를 말한다.
+ * `label` : Button위에 나타날 text를 말한다.
 * `String getLabel()` : Button에 나타나 있는 text를 얻는다.
 * `void setLabel(String label)` : Button에 나타나 있는 text를 변경한다.
 
-#### Button 사용하기
+##### Button 사용하기
 ```java
 import java.awt.*;
 
@@ -200,16 +200,16 @@ public class ButtonTest {
 }
 ```
 
-#### 레이아웃 매니저 Layout Manager (Button 크기 설정)
+##### 레이아웃 매니저 Layout Manager (Button 크기 설정)
 위 예제에서 버튼 크기를 프레임보다 작게 설정해도 프레임에 꽉 차는 현상이 나타난다.
 이는 Frame에 설정되어 있는 Layout Manager(레이아웃 매니저) 때문이다.
 * 컨테이너에는 레이아웃매니저를 선택적으로 설정할 수 있다.
 * 레이아웃매니저는 컨테이너 크기가 변경될 때 마다, 컨테이너에 포함된 컴포넌트들의 크기와 위치를 자동으로 관리해 준다.
 * 장점) 프로그래머가 수동적으로 일일이 컨테이너 내 컴포넌트 배치에 신경쓰지 않아도 된다.
 * 다양한 레이아웃 매니저의 종류와 특성이 있다. - 앞으로 배우게 될 것임. 
-  * Frame에 기본적으로 설정되어 있는 레이아웃매니저는 BorderLayout이다.
+ * Frame에 기본적으로 설정되어 있는 레이아웃매니저는 BorderLayout이다.
 * 지정된 레이아웃매니저 설정을 해제하면 컴포넌트가 자동으로 배치되지 않는다.
-  * 프로그래머가 직접 컴포넌트의 크기,위치 등을 설정해 주어야 한다.
+ * 프로그래머가 직접 컴포넌트의 크기,위치 등을 설정해 주어야 한다.
   * `setLocation()`, `setSize()` 를 통해 위치와 크기를 설정.
   
 아래는 레이아웃매니저를 해제하고 직접 버튼 크기와 위치를 설정하는 예제이다.
@@ -236,13 +236,13 @@ public class ButtonTest2 {
 
 ### Choice 
 * Choice : 여러 item이 있는 목록을 보여주고, 그 중 한 가지를 선택하도록 한다.
-  * (콤보박스 combo box / 드랍다운 리스트박스 drop-down listbox)
+ * (콤보박스 combo box / 드랍다운 리스트박스 drop-down listbox)
  
-#### Choice의 메서드
+##### Choice의 메서드
 * `void add(String item)` : Choice에 item을 추가한다.
 * `void remove(String item)` : Choice에서 item을 제거한다.
 * `void remove(int index)` : 지정된 인덱스의 item을 제거한다.
-  * AWT에서도 index는 0번째부터 시작한다! 첫 번째 item의 인덱스 = 0.
+ * AWT에서도 index는 0번째부터 시작한다! 첫 번째 item의 인덱스 = 0.
 * `void removeAll()` : Choice의 모든 item을 제거한다.
 * `void insert(String item, int index)` : 지정된 인덱스에 item을 추가한다.
 * `String getItem(int index)` : 지정된 인덱스의 item을 얻는다.
@@ -250,7 +250,7 @@ public class ButtonTest2 {
 * `int getSelectedIndex()` : 현재 선택되어져 있는 item의 index값을 얻는다.
 * `String getSelectedItem()` : 현재 선택되어져 있는 item을 얻는다.
 
-#### Choice 사용하기
+##### Choice 사용하기
 ```java
 import java.awt.*;
 
@@ -283,19 +283,19 @@ public class ChoiceTest {
 ### List 리스트
 * List도 Choice처럼 목록 중 원하는 항목을 선택하게 할 때 사용한다.
 * List와 Choice의 다른 점 : 
-  * List는 처음부터 모든 item목록을 보여준다
-  * List는 item목록 중에서 하나 또는 여러 개를 선택할 수 있다.
+ * List는 처음부터 모든 item목록을 보여준다
+ * List는 item목록 중에서 하나 또는 여러 개를 선택할 수 있다.
 
-#### List의 메서드
+##### List의 메서드
 * `List(int rows, boolean multipleMode)` 
-  * `rows` : 몇 줄 짜리 크기의 List를 만들지 지정.
-  * `multipleMode` : 다중선택이 가능하게 지정한다. (true - 다중선택 가능)
+ * `rows` : 몇 줄 짜리 크기의 List를 만들지 지정.
+ * `multipleMode` : 다중선택이 가능하게 지정한다. (true - 다중선택 가능)
 * `List(int rows)` 
-  * List에 보여줄 item 수만 지정한다. 
-  * 위 메서드와 달리 multipleMode값은 false로 자동지정되어 다중선택이 불가능한 선언방법이다.
+ * List에 보여줄 item 수만 지정한다. 
+ * 위 메서드와 달리 multipleMode값은 false로 자동지정되어 다중선택이 불가능한 선언방법이다.
 * `List()` 
-  * rows의 값은 기본값인 4로 지정된다.
-  * multipleMode의 값은 false로 자동지정되어 다중선택이 불가능한 선언방법.
+ * rows의 값은 기본값인 4로 지정된다.
+ * multipleMode의 값은 false로 자동지정되어 다중선택이 불가능한 선언방법.
 
 * `void add(String item)` : item을 List에 추가한다.
 * `void add(String item, int index)` : 지정 인덱스에 item을 추가한다.
@@ -314,15 +314,15 @@ public class ChoiceTest {
 * `void deselect(int index)` : 지정 인덱스의 item을 선택해제한다.
 * `int getSelectedIndex()` : 현재 선택된 item의 인덱스를 얻는다.
 * `int[] getSelectedIndexes()` : 현재 선택된 item들의 인덱스를 모두 얻는다.
-  * multipleMode가 true인 경우 사용 가능.
+ * multipleMode가 true인 경우 사용 가능.
 * `String getSelectedItem()` : 현재 선택된 item을 얻는다.
 * `String[] getSelectedItems()` : 현재 선택된 item들을 얻는다.
-  * multipleMode가 true인 경우 사용 가능. 
+ * multipleMode가 true인 경우 사용 가능. 
 * `boolean isIndexSelected(int index)` : 지정 인덱스의 item이 선택되어있는지 알려준다.
 * `void setMultipleMode(boolean b)` : List를 multipleMode로 할 것인지 설정.
-  * b가 true이면 multipleMode가 된다.
+ * b가 true이면 multipleMode가 된다.
 
-#### List 사용하기
+##### List 사용하기
 ```java
 import java.awt.*;
 
@@ -369,21 +369,21 @@ public class ListTest {
 * Label을 통해 화면에 글자를 표시할 수 있다.
 * 설명이나 메시지를 화면에 나타낼 때 주로 사용한다.
 
-#### Label의 주요 메서드
+##### Label의 주요 메서드
 * `Label(String text, int alignment)` 
-  * `text` : 화면에 나타낼 글자
-  * `alignment` : text의 정렬방식
-    * `Label.LEFT` `Label.CENTER` `Label.RIGHT` 중 선택해 지정
+ * `text` : 화면에 나타낼 글자
+ * `alignment` : text의 정렬방식
+  * `Label.LEFT` `Label.CENTER` `Label.RIGHT` 중 선택해 지정
 * `Label(String text)`
-  * `text`를 나타내되 `alignment`기본값인 왼쪽정렬로 설정된다.
+ * `text`를 나타내되 `alignment`기본값인 왼쪽정렬로 설정된다.
  
 * `String getText()` : Label의 text를 얻어온다
 * `void setText(String text)` : Label의 text를 주어진 값으로 변경
 * `void setAlignment(int alignment)` : Label의 text정렬을 지정
 
-#### Label 사용하기
+##### Label 사용하기
 * Frame에 레이아웃매니저가 설정되지 않은 경우, 컴포넌트들의 크기를 지정하지 않으면 화면에 표시되지 않는다.
-  * `.setSize()` 또는 `.setBounds()`를 통해 컴포넌트 크기를 지정해야 한다.  
+ * `.setSize()` 또는 `.setBounds()`를 통해 컴포넌트 크기를 지정해야 한다.  
 ```java
 import java.awt.*;
 
@@ -412,28 +412,28 @@ public class LabelTest {
 
 ### Checkbox, CheckboxGroup
 * Checkbox : boolean처럼 true/false(또는 on/off) 중 하나의 값을 가질 수 있는 컴포넌트이다.
-  * CheckboxGroup으로 그룹화하지 않으면 모든 값을 중복선택 가능하다.
+ * CheckboxGroup으로 그룹화하지 않으면 모든 값을 중복선택 가능하다.
 * CheckboxGroup : 여러 값들 중 하나를 선택하는 radio button을 만들 수 있다.
-  * 같은 그룹 내 Checkbox중에서 한 가지만 선택가능하다.
+ * 같은 그룹 내 Checkbox중에서 한 가지만 선택가능하다.
 
-#### Checkbox의 메서드
+##### Checkbox의 메서드
 * `Checkbox(String text, boolean state)` : Checkbox 객체 생성
-  * `text` - Checkbox 와 함께 보여질 text를 지정
-  * `state` - true이면 Checkbox가 선택된 상태로, false이면 선택해제된 상태로 생성.
+ * `text` - Checkbox 와 함께 보여질 text를 지정
+ * `state` - true이면 Checkbox가 선택된 상태로, false이면 선택해제된 상태로 생성.
 * `Checkbox(String text) ` 
-  * Checkbox와 함께 보여질 text를 지정. state는 false(선택해제)로 생성.
+ * Checkbox와 함께 보여질 text를 지정. state는 false(선택해제)로 생성.
 * `Checkbox()` 
-  * `text` 없이 Checkbox만 나타남. state는 false(선택해제)로 생성.
+ * `text` 없이 Checkbox만 나타남. state는 false(선택해제)로 생성.
  
 * `Checkbox(String text, CheckboxGroup group, boolean state)`
-  * group - CheckboxGroup 객체의 참조. CheckboxGroup을 이용해 radio button을 만든다.
+ * group - CheckboxGroup 객체의 참조. CheckboxGroup을 이용해 radio button을 만든다.
 
 * `String getLabel()` : Checkbox의 label을 얻는다
 * `void setLabel(String label)` : Checkbox의 label을 주어진 값으로 변경한다. 
 * `boolean getState()` : Checkbox의 상태를 얻는다. true이면 체크된 상태. 
 * `void setState(boolean state)` : Checkbox의 상태를 설정. state를 true로 하면 Checkbox가 체크된 상태가 된다.
 
-#### Checkbox 사용하기
+##### Checkbox 사용하기
 ```java
 import java.awt.*;
 
@@ -477,15 +477,15 @@ public class CheckboxTest {
 
 ### TextField
 * TextField : 사용자로부터 값을 입력받는 컴포넌트.
-  * 편집이 가능하다.
-  * 한 줄만 입력할 수 있어, 비교적 짧은 값을 입력받을 때 사용.(이름, id, 비밀번호)..
+ * 편집이 가능하다.
+ * 한 줄만 입력할 수 있어, 비교적 짧은 값을 입력받을 때 사용.(이름, id, 비밀번호)..
 
-#### TextField의 메서드
+##### TextField의 메서드
 * `TextField(String text, int col)` : TextField 객체 생성
-  * `text` : TextField에 보여질 text 지정
-  * `col` : (입력받을 글자의 수) TextField의 크기 지정.
+ * `text` : TextField에 보여질 text 지정
+ * `col` : (입력받을 글자의 수) TextField의 크기 지정.
 * `void setEchoChar(char c) ` : 지정된 문자를 EchoChar로 한다 (주로 비밀번호 입력에 사용)
-  * 입력하는 값에 관계없이 화면에는 지정된 문자`c`가 보이게 된다.
+ * 입력하는 값에 관계없이 화면에는 지정된 문자`c`가 보이게 된다.
 * `int getColumns()` : TextField의 col 수를 얻는다.
 
 TextComponent(TextField의 조상)로부터 상속받은 메서드
@@ -497,7 +497,7 @@ TextComponent(TextField의 조상)로부터 상속받은 메서드
 * `void setEditable(boolean b)` : TextField의 text를 편집가능(true)/불가능(false)하게 설정.
 
 
-#### TextField 사용하기
+##### TextField 사용하기
 ```java
 import java.awt.*;
 
@@ -529,16 +529,16 @@ public class TextFieldTest {
 
 ### TextArea
 * TextArea : 여러 줄의 text를 입력하거나 보여줄 수 있는 편집가능한 컴포넌트.
-  * 스크롤바를 이용해 화면에 보이는 것 보다 많은 양의 text를 담을 수 있다.
+ * 스크롤바를 이용해 화면에 보이는 것 보다 많은 양의 text를 담을 수 있다.
  
-#### TextArea의 메서드
+##### TextArea의 메서드
 (설명 : p.22)
 * `TextArea(String text, int row, int col, int scrollbar)` :
-  * `text` : 보여질 텍스트  
-  * `row` : (필수) TextArea의 줄 수(세로 길이) 
-  * `col` : (필수) TextArea의 열 수(가로 길이)
-  * `scrollbar` : TextAreadp 사용할 scrollbar의 종류 및 사용여부 지정
-    * `TextArea.SCROLLBARS_BOTH`, `TextArea.SCROLLBARS_NONE`, `TextArea.SCROLLBARS_HORIZONTAL_ONLY`, `TextArea.SCROLLBARS_VERTICAL_ONLY` 중 선택
+ * `text` : 보여질 텍스트  
+ * `row` : (필수) TextArea의 줄 수(세로 길이) 
+ * `col` : (필수) TextArea의 열 수(가로 길이)
+ * `scrollbar` : TextAreadp 사용할 scrollbar의 종류 및 사용여부 지정
+  * `TextArea.SCROLLBARS_BOTH`, `TextArea.SCROLLBARS_NONE`, `TextArea.SCROLLBARS_HORIZONTAL_ONLY`, `TextArea.SCROLLBARS_VERTICAL_ONLY` 중 선택
 * `int getRows()`, `int getColumns()` : 행, 열 개수 얻기
 * `void setRows(int rows)`, `void setColumns(int columns)` : 지정 값으로 행, 열 개수 설정
 * `void append(String str)` : text 맨 마지막에 str 덧붙이기
@@ -549,7 +549,7 @@ public class TextFieldTest {
 * `String getSelectedText()`
 * `void setEditable(boolean b)`
 
-#### TextArea 사용하기
+##### TextArea 사용하기
 ```java
 import java.awt.*;
 
@@ -574,20 +574,20 @@ public class TextAreaTest {
 * ScrollBar : 사용자가 정해진 범위 내에 있는 값을 쉽게 선택할 수 있도록 해주는 컴포넌트.
 * 주로 볼륨 설정, 속도 조절, 색상 선택 등에 사용.
 
-#### Scrollbar의 메서드
+##### Scrollbar의 메서드
 (설명 : p.24)
 * `Scrollbar()` : 아무 옵션 없이 생성할 수도 있다.
 * `Scrollbar(int orientation, int value, int visible, int min, int max)`
-  * `orientation` : Scrollbar의 종류. 
-    * `Scrollbar.VERTICAL`, `Scrollbar.HORIZONTAL`중 택1
-  * `value` : Scrollbar의 초기값
-  * `visible` : Scroll버튼(bubble) 의 크기
-  * `min` : Scrollbar의 최소값
-  * `max` : Scrollbar의 최대값
+ * `orientation` : Scrollbar의 종류. 
+  * `Scrollbar.VERTICAL`, `Scrollbar.HORIZONTAL`중 택1
+ * `value` : Scrollbar의 초기값
+ * `visible` : Scroll버튼(bubble) 의 크기
+ * `min` : Scrollbar의 최소값
+ * `max` : Scrollbar의 최대값
 * `int getValue()`
 * `void setValue(int newValue)`
 
-#### Scrollbar 사용하기
+##### Scrollbar 사용하기
 ```java
 import java.awt.*;
 
@@ -611,208 +611,3 @@ public class ScrollbarTest {
     }
 }
 ```
-
-- - - 
-
-### Canvas
-* Canvas : 빈 평면 공간을 제공하는 컴포넌트. 그림을 그리거나 글자를 적을 수 있다.
-* 주로 그림을 그리거나 이미지를 넣는 공간으로 사용.
-* 사용자정의 컴포넌트를 만들 때도 사용 가능.
-
-#### Canvas 사용하기
-```java
-import java.awt.*;
-
-public class CanvasTest {
-    public static void main(String[] args) {
-        Frame f = new Frame("CanvasTest");
-        f.setSize(300, 200);
-        f.setLayout(null); // Frame의 LayoutManager 설정 해제
-
-        Canvas c = new Canvas();
-        c.setBackground(Color.pink); // 캔버스 배경 = 분홍색
-        c.setBounds(50, 50, 150, 100); // 위치(x축/y축), 너비, 높이
-
-        f.add(c);
-        f.setVisible(true);
-    }
-}
-```
-
-- - - 
-
-### Panel
-* Panel : Frame과 같이 다른 컴포넌트를 자기 영역 내에 포함시킬 수 있는  **컨테이너**.
-* Panel 자신이 다른 컨테이너에 포함되거나, Panel 안에 Panel이 포함되는 것도 가능.
-* Frame과의 차이점 
-  * titlebar나 버튼이 전혀 없고, 비어있는 평면공간만 있다.
-  * Panel은 컨테이너이므로 자신만의 레이아웃을 유지 가능 - Panel을 통해 컴포넌트 배치를 다양화할수 있다.
-
-#### Panel 사용하기
-```java
-import java.awt.*;
-
-public class PanelTest {
-    public static void main(String[] args) {
-        Frame f = new Frame("Panel");
-        f.setSize(300,200);
-        f.setLayout(null); // Frame이 LayoutManager를 사용하지 않게 한다.
-
-        Panel p = new Panel(); // Panel은 LayoutManager를 사용 - Panel안의 버튼 위치,크기는 자동배치.
-        p.setBackground(Color.green);
-        p.setSize(100, 100);
-        p.setLocation(50, 50);
-
-        Button ok = new Button("OK");
-
-        p.add(ok); // Button은 Panel에 포함시킨다.
-        f.add(p); // Panel은 Frame에 포함시킨다.
-        f.setVisible(true);
-
-    }
-}
-```
-  
-- - -
-
-### ScrollPane
-* ScrollPane : **컨테이너**이나, 다른 컴포넌트를 **단 하나**만 포함할 수 있다.
-* 제한된 공간에서 크기가 큰 컴포넌트를 화면에 보여줄 때 사용.
-* 포함된 컴포넌트보다 자기자신보다 큰 경우 자동으로 스크롤바가 나타난다.
-
-#### ScrollPane 메서드
-* `ScrollPane(int scrollbarDisplayPolicy)`
-  * `scrollbarDisplayPolicy` - 아래 값 중 하나를 지정 (스크롤바 표시 여부)
-    * `SCROLLBARS_ALWAYS`, `SCROLLBARS_AS_NEEDED`, `SCROLLBARS,NEVER`
-* `ScrollPane()` 처럼 아무 설정 없이 객체를 생성할 수도 있다.
-
-#### ScrollPane 사용하기
-```java
-import java.awt.*;
-
-public class ScrollPaneTest {
-    public static void main(String[] args) {
-        Frame f = new Frame("ScrollPaneTest");
-        f.setSize(300, 200);
-
-        ScrollPane sp = new ScrollPane();
-        Panel p = new Panel();
-        p.setBackground(Color.green);
-        p.add(new Button("첫번째")); // Button들을 Panel에 포함시킨다.
-        p.add(new Button("두번째"));
-        p.add(new Button("세번째"));
-        p.add(new Button("네번쨰"));
-
-        sp.add(p); // Panel을 ScrollPane에 포함시킨다
-        f.add(sp); // ScrollPane을 Frame에 포함시킨다
-        f.setVisible(true);
-    }
-}
-```
-
-- - -
-
-### Dialog
-* Dialog : 주로 화면에 메시지창을 보여줄 때 사용.
-  * 에러 발생을 알릴 때, 파일 삭제 전 사용자에게 확인을 받을 때 .. 등
-* Dialog도 다른 컴포넌트들을 포함할 수 있는 **컨테이너** 이다.
-* Frame과 유사한 모양을 하고 있다.
-
-#### Dialog의 메서드
-* `Dialog(Frame parent, String title, boolean modal)` (생성자)
-  * `parent` : (필수) 어떤 Frame에 속한 것인지 지정.
-    * Dialog를 사용하기 위해서는 하나의 Frame이 Dialog의 parent로 지정되어야 함.
-    * 상속의 부모-자식 관계는 아니지만, Dialog가 어느 Frame과 관련있는지 지정하기 위함임.
-  * `title` : (필수) Dialog의 titlebar에 나타날 text 지정.
-  * `modal` : Dialog를 modal(필수응답)로 할 것인지 지정. 지정하지 않으면 false가 된다.
-    * ※`modal`은 사용자 입력을 독점한다는 의미. 반대말은 modeless.
-  * true인 경우, 부모 Frame은 Dialog가 사라지기 전까지는 사용할 수 없게 된다.
-    * 주로 사용자에게 중요 확인을 받아야 할 경우 사용.
-  * false인 경우, Dialog가 열려있어도 부모 Frame을 사용할 수 있다.
-* `void show()`, `void hide()` -> `void setVisible(boolean b)`: Dialog 보이기/숨기기
-* `void dispose()` : Dialog 삭제(화면에 안 보이게 한 후, 메모리에서 제거)
-* `String getTitle()`
-* `void setModal(boolean b)`
-* `void setResizable(boolean resizable)` : Dialog크기를 변경가능/불가능하게 함
-  * 기본적으로 Dialog는 크기변경이 불가능. 
-
-#### Dialog 사용하기
-```java
-import java.awt.*;
-
-public class DialogTest {
-    public static void main(String[] args) {
-        Frame f = new Frame("Parent");
-        f.setSize(300, 200);
-
-        // parent Frame을 f, modal을 true(필수응답 Dialog)
-        Dialog info = new Dialog(f, "Information", true);
-        info.setSize(140, 90);
-        info.setLocation(50,50); // parent Frame이 아닌, 화면이 위치기준이 됨.
-        info.setLayout(new FlowLayout());
-        // Dialog의 기본 레아이웃 매니저는 BorderLayout이기 떄문에 FlowLayout로 변경.
-
-        Label msg = new Label("This is modal Dialog", Label.CENTER);
-        Button ok = new Button("ok");
-// 아직 안 배운 내용(이벤트 처리) - ok버튼 누르면 Dialog 창 없애기.
-        ok.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ok버튼을 누르면 수행될 메서드 : Dialog 없애기.
-                info.setVisible(false); // Dialog를 안 보이게 한다.(숨김)
-                info.dispose(); // Dialog를 메모리에서 없앤다.(삭제)
-                // 둘 중 어느 방법을 사용해도 Dialog는 보이지 않게 되며, 부모Frame은 사용가능해진다.
-            }
-        });
-
-        info.add(msg);
-        info.add(ok);
-
-        f.setVisible(true); // Frame을 보이게 한 다음,
-        info.setVisible(true); // Dialog를 보이게 한다.
-    }
-}
-```
-
-- - -
-
-### FileDialog
-* FileDialog : 파일을 열거나 저장할 때 사용되는 Dialog.
-* 대부분의 기능이 이미 구현되어 있어, 따로 코드를 추가하지 않아도 된다.
-
-#### FileDialog 메서드
-* `FileDialog(Frame parent, String title, int mode)` (생성자)
-  * `parent` : (필수) 어떤 Frame에 속한 것인지 지정
-  * `title` : (필수) FileDialog의 titlebar에 나타날 text 지정
-  * `mode` : `FileDialog.LOAD`(열기), `FileDialog.SAVE`(저장) 중 하나 선택
-* `String getFile()` : FileDialog에 의해 선택된 파일의 이름을 얻는다. 
-* `String getDirectory()` : FileDialog에 의해 선택된 파일의 경로(path)를 얻는다. 
-* `void setFile(String file)`, `void setDirectory(String dir)` 
-  * FileDialog에 지정된 파일/디렉토리 설정.
- 
-#### FileDialog 사용하기
-```java
-import java.awt.*;
-
-public class FileDialogTest {
-    public static void main(String[] args) {
-        Frame f = new Frame("Parent");
-        f.setSize(300, 200);
-
-        FileDialog fileOpen = new FileDialog(f, "파일열기", FileDialog.LOAD);
-
-        f.setVisible(true); // Frame을 표시하고
-        fileOpen.setDirectory("c:\\"); // c 디렉토리 내의 파일들이 보이게 열기
-        fileOpen.setVisible(true); // FileDialog를 표시.
-
-        // FileDialog에서 파일을 선택한 다음 '열기'버튼을 누르면,
-        // getFile()과 getDirectory()를 이용해 선택된 파일의 이름과 디렉토리 위치를 얻을 수 있다.
-        // 아무것도 선택하지 않을 시, null을 반환.
-        System.out.println(fileOpen.getDirectory() + fileOpen.getFile());
-    }
-}
-```
-
-- - -
-- - -
-
