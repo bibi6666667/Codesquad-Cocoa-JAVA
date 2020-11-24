@@ -1289,3 +1289,344 @@ public class CardLayoutTest {
 - - - 
 
 # 이벤트 처리 event handling
+
+## 이벤트 event 란?
+* 이벤트 : 사용자 또는 프로그램 코드에 의해 발생할 수 있는 사건.
+  * (사용자가 마우스를 움직이거나 클릭함 / 키보드를 누름 / Frame의 크기를 변경 ...)
+
+* 이벤트 소스(event source, 이벤트 발생지)
+  * 이벤트가 발생한 컴포넌트. (예시 : 사용자가 버튼을 눌러 이벤트 발생 -> button이 이벤트 소스.)
+* 이벤트 핸들러(event handler, 이벤트 처리기)
+  * 이벤트가 발생했을 때 실행할 코드를 구현해 놓은 클래스. 주로 함수나 메소드이다.
+* 이벤트 리스너(event listener, 이벤트 감지기)
+  * 이벤트를 감지하고 처리하는 클래스. 
+* 이벤트 처리(event handling, 이벤트 핸들링)
+  * (이벤트 소스와 이벤트 핸들러를 이벤트 리스너로 연결하는 것?)
+  * 이벤트에 대한 수행코드를 작성하여 이벤트 소스에 이벤트 리스너로 등록하는 것.
+  * 이벤트가 발생하더라도, 그에 대한 이벤트 처리를 하지 않으면 아무 일도 일어나지 않음.
+
+* 사실 사용자가 AWT프로그램을 사용하면서 하는 모든 동작이 이벤트를 발생시킨다.
+  단지 이벤트에 대한 이벤트 처리가 되어있지 않기 때문에 아무 일도 일어나지 않는 것.
+  
+## 이벤트의 발생과 처리
+1. 이벤트 발생
+  * 이벤트가 발생하면 해당 이벤트 클래스의 인스턴스가 생성됨.
+2. 이벤트 처리가 되어 있는지 확인
+  * = 이벤트 리스너가 이벤트 소스에 등록되어 있는지 확인.
+3-1. (이벤트 처리가 되어 있다면) 이벤트 리스너가 이벤트를 처리함.
+3-2. (이벤트 처리가 되어 있지 않다면) 아무 일도 일어나지 않음.
+
+* 이벤트 처리는 "예외처리"와 유사하다.
+  * 둘 다 클래스의 인스턴스가 생성되고, 일치하는 catch블럭/Listener가 처리함.
+  
+## 이벤트 처리방법
+* 이벤트 처리(event handling)
+  * (AWT프로그램 실행 중) 사용자의 어떤 동작에 의해 이벤트가 발생했을 때, 이에 대한 어떤 작업이 수행되도록 하는 것.
+  
+* 이벤트 처리 방법
+  1. **①이벤트 리스너 추가/제거 메서드**들 중에서 필요한 것을 찾는다.
+    *(예시)창닫기 버튼 눌림. 마우스 왼쪽 클릭 ..
+  2. 선택한 메서드가 속해있는 **②이벤트 관련 인터페이스**를 구현하는 클래스를 작성한다.
+  3. 위에서 구현한 클래스의 인스턴스를 생성해 이벤트 소스에 Listener로 등록한다.
+  * ❗ EventHandler클래스는 WindowListener인터페이스를 구현해야 함.
+    * 따라서 WindowListener인터페이스에 정의되어 있는 모든 추상 메서드의 body부분을 만들어 주어야 함.
+    * 그래서 아무 내용도 없는 메서드들도 만든 것. (내용은 없지만 메서드 body들이 있어야 한다)
+      * 이렇게 body(틀)만 있는 메서드들은 호출되어도 실행할 문장이 없으므로 바로 종료된다.
+  
+- - - 
+  
+### ②이벤트 관련 인터페이스들
+* ※ 구분
+* `~Event` : 이벤트에 해당.
+* `~Listener` : 인터페이스에 해당
+* 이하 메서드 : 각 이벤트 인터페이스에 속하는 메서드에 해당.
+
+* ※ AWT이벤트들의 최고 조상은 AWTEvent이다.
+* ※ 이벤트 관련 클래스들은 `java.awt.event` 패키지에 속한다.
+
+* 각 Listener들을 추가/제거하는 메서드(공통)
+  * 추가 : `void add리스너이름(이벤트핸들러이름)`
+  * 제거 : `void remove리스너이름(이벤트핸들러이름)`
+  
+* ✅ 각 메서드에서는 발생한 이벤트의 인스턴스에 대한 참조를 사용할 수 있다.
+* 따라서 이벤트 발생 시 생성된 이벤트 인스턴스들의 메서드 역시 사용할 수 있다!
+
+* 아래는 이벤트의 종류와 관련 인터페이스이다.
+* `ActionEvent`
+  * `ActionListener`
+    * `actionPeformed(ActonEvent ae)`
+* `ComponentEvent` 
+  * `ComponentListener` 
+    * `componentMoved(ActonEvent ae)` 
+    * `componentHidden(ActonEvent ae)` 
+    * `componentResized(ActonEvent ae)` 
+    * `componentShown(ActonEvent ae)` 
+* `MouseEvent` 
+  * `MouseMotionListener` 
+    * `mouseDragged(MouseEvent me)` 
+    * `mouseMoved(MouseEvent me)` 
+  * `MouseListener` 
+    * `mousePressed(MouseEvent me)` 
+    * `mouseReleased(MouseEvent me)` 
+    * `mouseEntered(MouseEvent me)` 
+    * `mouseExited(MouseEvent me)`
+    * `mouseClicked(MouseEvent me)` 
+* `MouseWheelEvent` 
+  * `MouseWheelListener` 
+    * ` mouseWheelMoved(MouseWheelEvent e)` 
+* `KeyEvent` 
+  * ` KeyListener` 
+    * `keyPressed(KeyEvent ke)` 
+    * `keyReleased(KeyEvent ke)` 
+    * `keyTyped(KeyEvent ke)` 
+* `TextEvent` 
+  * `TextListener` 
+    * `textValueChanged(TextEvent te)` 
+* `FocusEvent` 
+  * `FocusListener` 
+    * `focusGained(FocusEvent fe)` 
+    * `focusLost(FocusEvent fe)` 
+* `ItemEvent` 
+  * `ItemListener` 
+    * `itemStateChanged(ItemEvent ie)` 
+* `AdjustmentEvent` 
+  * `AdjustmentListener` 
+    * `adjustmentValueChanged(AdjustmentEvent ae)` 
+* `WindowEvent` 
+  * `WindowListener` 
+    * `windowClosing(WindowEvent we)`
+    * `windowOpened(WindowEvent we)` 
+    * `windowIconified(WindowEvent we)` 
+    * `windowDeiconified(WindowEvent we)` 
+    * `windowClosed(WindowEvent we)` 
+    * `windowActivated(WindowEvent we)` 
+    * `windowDeactivated(WindowEvent we)` 
+  * `WindowFocusListener` 
+    * `windowGainedFocus(WindowEvent e)` 
+    * `windowLostFocus(WindowEvent e)` 
+  * `WindowStateListener` 
+    * `windowStateChanged(WindowEvent e)` 
+* `ContainerEvent` 
+  * `ContainerListener` 
+    * `componentAdded(ContainerEvent ce)` 
+    * `componentRemoved(ContainerEvent ce)` 
+  
+- - - 
+  
+### ①이벤트 리스너 추가/제거 메서드들
+* 이벤트 리스너를 컴포넌트에 추가/제거하는 메서드들이다.
+* **②이벤트 관련 인터페이스들** 의 **메서드**들에 대한 설명에 해당한다!
+
+* ※ 윈도우 = 컨테이너인 Window와 그 자손들인 Frame, Dialog, FileDialog를 뜻한다.
+  * 활성윈도우 active window : 현재 작업 중인 윈도우 = 가장 위에 나타나는 윈도우
+  * 비활성화 deactivated : 사용자가 다른 작업을 위해 다른 윈도우를 선택시, 이전에 작업하던 윈도우는 비활성화됨.
+
+* ※ `ActionEvent ae` 
+  * 고수준 이벤트로, 컴포넌트에 정의된 동작이 수행되었을 때 발생함.
+  * ActionEvent가 발생하는 경우
+    * Button이 눌러졌을 때(클릭/스페이스바)
+    * Menu를 클릭했을 때
+    * TextField  에서 Enter키를 눌렀을 때
+    * List의 item 하나를 선택하여 더블클릭했을 때
+  * 이 때는 MouseEvent나 KeyEvent가 발생해도, 최종적으로는 ActionEvent가 발생한 것으로 처리됨.
+  * 따라서 ActionListener의 actionPerformed(ActionEvent ae)에 이벤트 발생시 수행할 코드를 작성해야 한다.
+  * ActionEvent의 장점 : 버튼을 누르는 여러 방법이 존재하더라도 최종적으로는 ActionEvent만 발생하므로, 이에 대한 처리만 하면 된다.
+   
+* 아래는 각 메서드와 각 메서드의 호출시기이다.
+* `actionPeformed(ActonEvent ae)`  
+  * Button이 눌러졌을 때(클릭/스페이스바)
+  * Menu를 클릭했을 때
+  * TextField  에서 Enter키를 눌렀을 때
+  * List의 item 하나를 선택하여 더블클릭했을 때
+  
+* `componentMoved(ActonEvent ae)`
+* `componentShown(ActonEvent ae)`
+* `componentHidden(ActonEvent ae)`
+* `componentResized(ActonEvent ae)`
+  * 각각 컴포넌트가 이동되었을 때 / 화면에 보일 떄 / 화면에 보이지 않을 때 / 크기가 변경되었을 때.
+    
+* `mouseDragged(MouseEvent me)` : 마우스 버튼을 누른 채로 마우스를 움직였을 때  
+* `mouseMoved(MouseEvent me)` : 마우스 포인터를 이동시킬 때
+* `mousePressed(MouseEvent me)` : 마우스 버튼을 눌렀을 때
+* `mouseReleased(MouseEvent me)` : 마우스 버튼을 뗴었을 때
+* `mouseEntered(MouseEvent me) ` : 마우스포인터가 이벤트소스 영역 내로 들어왔을 떄
+* `mouseExited(MouseEvent me) ` : 마우스포인터가 이벤트소스 영역 밖으로 나갈 때
+* `mouseClicked(MouseEvent me)` : 마우스 버튼을 눌렀다 떼었을 때
+* `mouseWheelMoved(MouseWheelEvent e)` : 마우스 휠을 움직였을 때
+
+* `keyPressed(KeyEvent ke) ` : 키보드 키를 눌렀을 때
+* `keyReleased(KeyEvent ke)` : 키보드 키를 떼었을 때
+* `keyTyped(KeyEvent ke) ` : 키보드 키를 눌렀다 떼었을 때
+
+* `textValueChanged(TextEvent te)` : TextField/TextArea의 내용이 변경되었을 때
+
+* `focusGained(FocusEvent fe) ` : 이벤트 소스로 focus가 이동했을 때
+* `focusLost(FocusEvent fe)` : 이벤트 소스가 갖고 있던 focus가 다른 컴포넌트로 이동했을 때
+
+* `itemStateChanged(ItemEvent ie)` : Checkbox, CheckboxItem, List, Choice 의 status가 변경되었을 때.
+  * (selected <-> unselected 로 status가 전환될 때)
+  
+* `adjustmentValueChanged(AdjustmentEvent ae)` : Scrollbar의 값이 변경되었을 때
+
+* `windowOpened(WindowEvent we)` : 윈도우가 열렸을 때
+* `windowClosing(WindowEvent we) ` : 윈도우가 닫힐 때(닫기 버튼을 눌렀을 때)
+* `windowClosed(WindowEvent we)` : 윈도우가 닫혔을 때(dispose()가 호출되었을 떄)
+* `windowIconified(WindowEvent we)` : 윈도우가 최소화(아이콘화)되었을 때
+* `windowDeiconified(WindowEvent we) ` : 윈도우가 최소화 상태에서 원래 크기로 돌아왔을 때 
+* `windowActivated(WindowEvent we)` : 윈도우가 활성화 되었을 떄
+* `windowDeactivated(WindowEvent we) ` : 윈도우가 비활성화 되었을 때
+* `windowGainedFocus(WindowEvent e)` : 윈도우가 포커스를 얻을 때
+* `windowLostFocus(WindowEvent e)` : 윈도우가 포커스를 잃었을 때
+* `windowStateChanged(WindowEvent e)` : 윈도우의 상태가 변했을 때
+
+* `componentAdded(ContainerEvent ce)` : 컨테이너에 컴포넌트가 추가되었을 때
+* `componentRemoved(ContainerEvent ce)` : 컨테이너에 컴포넌트가 제거되었을 때
+
+
+- - - 
+
+#### 이벤트 처리 예시 - 닫기 버튼 동작시키기
+```java
+package mission6.event;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class FrameTest3 {
+    public static void main(String[] args) {
+        Frame f = new Frame("Login"); // Frame객체를 생성한다
+        f.setSize(300, 200); // Frame의 크기를 설정한다
+
+        // EventHandler클래스의 객체를 생성해 Frame의 WindowListener로 등록한다
+        f.addWindowListener(new EventHandler());
+        f.setVisible(true); // Frame .
+    }
+}
+
+// 클래스 EventHandler에서,
+// 이미 만들어져 있는 WindowListener라는 인터페이스를 구현하게 함.
+class EventHandler implements WindowListener
+{
+    public void windowOpened(WindowEvent e) {}
+    // ↓ windowClosing메서드 : Frame의 닫기 버튼을 눌렀을 때 호출된다.
+    // 따라서 해당 메서드에 어플리케이션을 종료하는 코드를 추가해야 한다.
+    public void windowClosing(WindowEvent e) { // 사용자가 닫기 버튼을 누르는 이벤트
+        e.getWindow().setVisible(false); // Frame을 화면에서 보이지 않도록 하고
+        e.getWindow().dispose(); // 메모리에서 제거한다
+        System.exit(0); // 프로그램을 종료한다
+        // ※ 이 메서드 내에서는 이벤트 발생시 생성된 WindowEvent인스턴스의 참조를 사용할 수 있다.
+        // 그래서 WindowEvent인스턴스의 메서드들을 사용할 수 있다.
+    }
+    public void windowClosed(WindowEvent e) {} // 아무내용도 없는 메서드들 구현
+    public void windowIconified(WindowEvent e) {}
+    public void windowDeiconified(WindowEvent e) {}
+    public void windowActivated(WindowEvent e) {}
+    public void windowDeactivated(WindowEvent e) {}
+}
+```
+
+- - -
+
+## Adapter클래스
+* Adapter클래스
+  * 이벤트 리스너를 직접 구현하는 대신, Adapter클래스를 상속받아 원하는 메서드만 작성(오버라이딩)할 수 있도록 고안되었다.
+  * 이벤트 핸들러를 작성할 때, 해당 이벤트 리스너에 정의된 **모든** 추상메서드를 구현해야 하는 불편함을 개선하기 위해 고안됨.
+  
+* Adapter를 상속받으면, 이벤트리스너(인터페이스)의 모든 추상메서드를 구현하지 않고 원하는 메서드만 작성하면 된다. 
+  * (Adapter클래스는 그저 이벤트 리스너에 정의된 모든 메서드를 추상메서드로(아무 내용 없이) 구현해 놓은 메서드일 뿐이다.)
+  
+* 따라서 이벤트 핸들러를 작성할 때..
+  * 이벤트 리스너를 구현하거나 : `implements 이벤트리스너`
+  * Adapter클래스를 상속받으면 된다 : `extends Adapter클래스`
+  * (둘의 차이는 코드 작성의 편리함 외에는 아무 차이가 없다)
+  
+#### Adapter클래스로 구현되어 있는 이벤트 리스너
+* 아래는 Adapter클래스로 구현되어 있는 이벤크 리스너의 목록이다.
+* (좌)이벤트 리스너(인터페이스) - (우)Adapter 클래스
+* `ComponentListener` - `ComponentAdapter`
+* `ContainerListener` - `ContainerAdapter`
+* `FocusListener` - `FocusAdapter`
+* `KeyListener` - `KeyAdapter`
+* `MouseListener` - `MouseAdapter`
+* `MouseMotionListener` - `MouseMotionAdapter`
+* `WindowListener` - `WindowAdapter`
+
+- - -
+
+#### 이벤트 예제 (1) - 로그인 구현하기
+* 객체지향적으로 정리된 코드의 예시.
+  * Frame을 상속받는 클래스 구현
+  * Frame에 포함되는 컴포넌트들을 인스턴스멤버로 선언
+  * Frame의 생성자에서 컴포넌트를 생성 및 설정하게 함
+* TextField인 tfId, tfPwd에도 EventHandler인스턴스를 이벤트 리스너로 등록한 이유
+  * TextField에서 엔터 키를 둘러도 ok버튼을 누른 것과 같게 처리하기 위해.
+  * ActionEvent와 같은 고수준 이벤트의 필요성.
+* TextField/TextArea/TextComponent의 메서드들 활용
+  * `requestFocus()` : 원하는 컴포넌트가 포커스를 갖게 한다.
+  * `selectAll()` : TextField 또는 TextArea에 입력된 text전체를 선택된 상태로 만든다
+  * `setEchoChar(char c)` : - 실제로 입력된 값을 감추기 위해 화면에 보여질 문자를 지정한다
+  
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class TextFieldTest2 extends Frame {
+    // Frame클래스를 상속받는다(=Frame클래스의 public/protected 변수 및 메서드 사용가능)
+    Label lid;
+    Label lpwd;
+    TextField tfId;
+    TextField tfPwd;
+    Button ok;
+
+    TextFieldTest2(String title) { // 생성자
+        super(title); // Frame클래스의 생성자를 호출한다.
+
+        lid = new Label("ID :", Label.RIGHT); // Label의 text정렬을 오른쪽으로
+        lpwd = new Label("Password :", Label.RIGHT);
+
+        // 약 10개의 글자를 입력할 수 있는 TextField생성
+        tfId = new TextField(10);
+        tfPwd = new TextField(10);
+        tfPwd.setEchoChar('*'); // 입력한 값 대신 '*'이 보이게 한다
+
+        ok = new Button("OK");
+        // OK버튼과 TextField에 이벤트처리를 위한 Listener를 추가해준다
+        // TextField에 이벤트처리를 하는 이유? 엔터키를 눌렀을 때도 처리되게 하기 위해.
+        tfId.addActionListener(new EventHandler());
+        tfPwd.addActionListener(new EventHandler());
+        ok.addActionListener(new EventHandler());
+
+        setLayout(new FlowLayout()); // LayoutManager를 FlowLayout으로
+        add(lid); // 생성한 Component들을 Frame에 포함시킨다
+        add(tfId);
+        add(lpwd);
+        add(tfPwd);
+        add(ok);
+        setSize(450, 65);
+        setVisible(true); // Frame이 화면에 보이게 한다
+    }
+    public static void main(String args[]) {
+        TextFieldTest2 f = new TextFieldTest2("Login");
+    }
+    class EventHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            String id = tfId.getText(); // tfId에 입력되어있는 text를 얻어온다
+            String password = tfPwd.getText();
+            if (!id.equals("javachobo")){
+                System.out.println("입력하신 id가 유효하지 않습니다. 다시 입력해 주세요.");
+                // id를 다시 입력할 수 있도록, focus를 tfId로 옮긴다
+                tfId.requestFocus();
+                tfId.selectAll(); // tfId에 입력된  text가 선택되게 한다
+            } else if (!password.equals("asdf")) {
+                System.out.println("입력하신 비밀번호가 틀렸습니다. 다시 입력해 주세요.");
+                // pwd를 다시 입력할 수 있도록  focus를 tfPwd로 옮긴다
+                tfPwd.requestFocus();
+                tfPwd.selectAll();
+            } else {
+                System.out.println( id + "님, 성공적으로 로그인 되었습니다.");
+            }
+        }
+    } // class EventHandler
+}
+```
+
