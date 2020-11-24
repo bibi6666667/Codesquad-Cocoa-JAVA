@@ -1,4 +1,4 @@
-package mission6;
+package mission6.awtcomponent;
 
 import java.awt.*;
 
