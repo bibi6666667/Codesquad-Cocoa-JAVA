@@ -814,5 +814,478 @@ public class FileDialogTest {
 ```
 
 - - -
+
+### Font
+* Font : Font의 인스턴스를 생성한 뒤 컴포넌트의 글씨체를 지정할 수 있다.
+* `setFont(Font f)` : 컴포넌트에 사용되는 text의 글씨체를 지정할 수 있다.  
+
+#### Font 생성자
+* `Font(String name, int style, int size)`
+  * `name` : 사용할 폰트의 이름.
+    * 기본 제공 폰트 :  `Serif`, `SansSerif`, `Dialog`, `DialogInput`, `Monospaced`
+    * 다른 폰트 사용을 위해서는 그 폰트가 컴퓨터에 설치되어 있어야 한다.
+    * 현재 설치된 Font리스트 얻기 : `GraphicsEnvironment` 클래스의 메서드들을 이용한다.
+  * `style` : 폰트의 스타일 지정.
+    * `Font.PLAIN`, `Font.BOLD`, `Font.ITALIC`, `Font.BOLD+Font.ITALIC` 중 선택.
+  * `size` : 폰트의 크기 지정.
+
+#### Font 조회하기
+```java
+import java.awt.*;
+
+public class FontList {
+    public static void main(String[] args) {
+        GraphicsEnvironment ge = null; // GraphicsEnvironment객체생성
+        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Font[] fonts = ge.getAllFonts(); // 시스템 내의 폰트 목록 가져오기
+
+        for(int i=0; i < fonts.length; i++) {
+            System.out.println(fonts[i].getFontName()); // 폰트 이름 하나씩 출력
+        }
+    }
+}
+```  
+
+#### Font 사용하기
+```java
+import java.awt.*;
+
+public class FontTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("Font Test");
+        String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        Label abc1 = new Label(abc);
+        Label abc2 = new Label(abc);
+        Label abc3 = new Label(abc);
+        Label abc4 = new Label(abc);
+        Label abc5 = new Label(abc);
+
+        // Font를 설정
+        Font f1 = new Font("Serif", Font.PLAIN, 20); // 보통체
+        Font f2 = new Font("Serif", Font.ITALIC, 20); // 기울임체
+        Font f3 = new Font("Serif", Font.BOLD, 20); // 굵은체
+        Font f4 = new Font("Serif", Font.BOLD+Font.ITALIC, 20); // 굵은 기울임체
+
+        // 설정한 Font를 Label에 적용
+        abc1.setFont(f1);
+        abc2.setFont(f2);
+        abc3.setFont(f3);
+        abc4.setFont(f4);
+
+        f.setLayout(new FlowLayout());
+        f.add(abc1);
+        f.add(abc2);
+        f.add(abc3);
+        f.add(abc4);
+        f.add(abc5); // 폰트를 지정해 주지 않으면, 자신이 포함된 컨테이너의 기본설정을 따른다.
+
+        f.setSize(400, 200);
+        f.setVisible(true);
+    }
+}
+```
+
+### Color
+* Color : 색을 표현하는 클래스. 원하는 RGB값을 가지고 그 색깔의 객체를 생성, 사용할 수 있다.
+  * 자주 쓰이는 색은 static으로 정의되어 있어 RGB값을 몰라도 사용 가능.
+* 주로 컴포넌트의 배경색/전경색 설정하는 메서드 - `setForeground(Color c)`, `setBackground(Color c)`의 매개변수로 사용됨.
+
+#### Color의 생성자 / 메서드
+* `Color(int r, int g, int b, int a)` 또는 `Color(float r, float g, float b, float a)`
+  * `r` - red, `g` - green, `b` - blue.
+    * `r`, `g`, `b`는 모두 0~255의 정수값 또는 0.0~1.0의 실수값을 갖는다.
+  * `a` - (선택) 색의 불투명도를 지정하는 alpha값으로. 값이 클수록 불투명하다.
+    * 0~255의 정수값 또는 0.0~1.0의 실수값을 갖는다.
+
+#### Color 사용하기
+```java
+import java.awt.*;
+
+public class ColorTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("Color Test");
+        f.setLayout(new GridLayout(14, 2)); // 가로 14줄, 세로 2줄의 표? 생성
+        Panel p1 = new Panel(); p1.setBackground(Color.black);
+        Panel p2 = new Panel(); p2.setBackground(Color.blue);
+        Panel p3 = new Panel(); p3.setBackground(Color.cyan);
+        Panel p4 = new Panel(); p4.setBackground(Color.darkGray);
+        Panel p5 = new Panel(); p5.setBackground(Color.gray);
+        Panel p6 = new Panel(); p6.setBackground(Color.green);
+        Panel p7 = new Panel(); p7.setBackground(Color.lightGray);
+        Panel p8 = new Panel(); p8.setBackground(Color.magenta);
+        Panel p9 = new Panel(); p9.setBackground(Color.orange);
+        Panel p10 = new Panel(); p10.setBackground(Color.pink);
+        Panel p11 = new Panel(); p11.setBackground(Color.red);
+        Panel p12 = new Panel(); p12.setBackground(Color.white);
+        Panel p13 = new Panel(); p13.setBackground(Color.yellow);
+        Panel p14 = new Panel(); p14.setBackground(new Color(50,100,100));
+        // 새 Color객체 선언해 RGB값을 설정할 수도 있다.
+
+        f.add(new Label("Color.black")); f.add(p1); // 색 이름과 색 Panel 추가.
+        f.add(new Label("Color.blue")); f.add(p2);
+        f.add(new Label("Color.cyan")); f.add(p3);
+        f.add(new Label("Color.darkGray")); f.add(p4);
+        f.add(new Label("Color.gray")); f.add(p5);
+        f.add(new Label("Color.green")); f.add(p6);
+        f.add(new Label("Color.lightGray")); f.add(p7);
+        f.add(new Label("Color.magenta")); f.add(p8);
+        f.add(new Label("Color.orange")); f.add(p9);
+        f.add(new Label("Color.pink")); f.add(p10);
+        f.add(new Label("Color.red")); f.add(p11);
+        f.add(new Label("Color.white")); f.add(p12);
+        f.add(new Label("Color.yellow")); f.add(p13);
+        f.add(new Label("Color(50, 100, 100)")); f.add(p14);
+        f.setSize(250, 300);
+        f.setVisible(true);
+    }
+}
+```
+- - -
 - - -
 
+# 메뉴 만들기
+
+## 메뉴를 구성하는 컴포넌트
+* Frame에 메뉴를 구성하기 위해서는 MenuComponent 클래스의 `MenuBar`, `Menu`, `MenuItem`과 같은 컴포넌트들을 사용한다.
+* 모든 AWT컴포넌트의 조상이 Component클래스인 것처럼, 메뉴를 구성하는 컴포넌트들의 조상은 MenuComponent이다.
+  * MenuComponent클래스는 `MenuBar`와 `MenuItem`을 자식으로 갖고,
+  * `MenuItem`은 `Menu`/`PopupMenu`, `CheckboxMenuItem`을 자식으로 갖는다.
+
+* 계층형 메뉴 : 폴더처럼 Menu에 Menu를 담아 계층형을 메뉴를 구성할 수 있다.
+* 최상위 메뉴 : 항상 화면에 나타나는 최상위메뉴를 MenuBar에 담고, MenuBar는 다시 Frame에 추가함으로써 메뉴 작성이 끝난다.
+
+* `Menu` : Menu와 MenuItem이 포함될 수 있다.
+  * 계층형 메뉴 : Menu에 Menu를 포함시킨다.
+* `MenuBar` : Menu만 포함될 수 있다. MenuItem은 포함시킬 수 없다.
+* `MenuItem` : Menu에 포함된다.
+
+* `PopupMenu` : 마우스 오른쪽 버튼을 누르면 나타나는, 위치가 고정되어 있지 않은 메뉴.
+  * Frame내의 어디서나 실행 가능. (= 오른쪽 클릭)  
+
+
+이벤트핸들러, 캔버스 위주로 공부하기.
+
+#### 메뉴 컴포넌트의 메서드, 생성자
+* `setHelpMenu(Menu menu)` 
+  * OS마다 Help메뉴가 다르게 취급된다. - 윈도우에서는 특별히 다르게 다뤄지지는 않음.
+* `addSeparator()`
+* `CheckboxMenuItem(String name, boolean status)`
+* `CheckboxMenuItem(String name)`
+
+#### 메뉴 컴포넌트들과 PopupMenu 사용하기
+##### 메뉴 컴포넌트
+```java
+import java.awt.*;
+
+public class MenuTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("Frame with Menu");
+        f.setSize(300, 200);
+
+        MenuBar mb = new MenuBar(); // 메뉴바 선언
+        Menu mFile = new Menu("File"); // 메뉴 선언
+
+        MenuItem miNew = new MenuItem("New");
+        MenuItem miOpen = new MenuItem("Open");
+        Menu mOthers = new Menu("Others"); // MenuItme이 아닌 Menu.
+        MenuItem miExit = new MenuItem("Exit");
+
+        mFile.add(miNew);//Menu에 MenuItem들을 추가.
+        mFile.add(miOpen);
+        mFile.add(mOthers); // Menu에 Menu 추가.
+        mFile.addSeparator(); // 메뉴 분리선 추가.
+        mFile.add(miExit);
+
+        MenuItem miPrint = new MenuItem("Print ...");
+        MenuItem miPreview = new MenuItem("Print Preview");
+        MenuItem miSetup = new MenuItem("Print Setup ...");
+        mOthers.add(miPrint);
+        mOthers.add(miPreview);
+        mOthers.add(miSetup); // Others에 하위 메뉴들을 만들어 넣는다.
+
+        Menu mEdit = new Menu("Edit");
+        Menu mView = new Menu("View");
+        Menu mHelp = new Menu("Help");
+        CheckboxMenuItem miStatusBar = new CheckboxMenuItem("Statusbar");
+        mView.add(miStatusBar); // View에 상태바 추가
+
+        mb.add(mFile); // MenuBar에 Menu들을 추가한다.
+        mb.add(mEdit);
+        mb.add(mView);
+        mb.setHelpMenu(mHelp); // mHelp를 HelpMenu로 지정.
+
+        f.setMenuBar(mb); // Frame에 MenuBar를 포함시킨다.
+        f.setVisible(true);
+    }
+}
+```
+
+##### PopupMenu
+```java
+import java.awt.*;
+import java.awt.event.*; // 이벤트 처리를 위해 추가.
+
+public class PopupMenuTest {
+    public static void main(String[] args) {
+        final Frame f = new Frame("PopupMenu Test");
+        f.setSize(300, 200);
+
+        final PopupMenu pMenu = new PopupMenu("Edit");
+
+        // final ? 메서드 내에 정의된 클래스에서는,
+        // 같은 메서드 내의 지역변수들 중 final키워드가 붙언 것들만 참조할 수 있다.
+        // 익명클래스를 main메서드 내에 정의했기 때문에 사용.
+
+        MenuItem miCut = new MenuItem("Cut");
+        MenuItem miCopy = new MenuItem("Copy");
+        MenuItem miPaste = new MenuItem("Paste");
+        pMenu.add(miCut); // PopupMenu에 MenuItem들을 추가한다.
+        pMenu.add(miCopy);
+        pMenu.add(miPaste);
+
+        f.add(pMenu); // PopupMenu를 Frame에 추가한다.
+        f.addMouseListener(new MouseAdapter() { // 익명클래스
+            public void mousePressed(MouseEvent me) {
+                // 오른쪽 마우스버튼을 누르면 PopupMenu를 화면에 보여준다
+                if (me.getModifiers() == me.BUTTON3_MASK)
+                    pMenu.show(f, me.getX(), me.getY()); // Frame내에서 마우스포인터의 x,y좌표 얻기
+            }
+        });
+        f.setVisible(true);
+    }
+}
+```
+
+- - -
+- - -
+
+# 레이아웃 매니저 Layout Manager
+* 레이아웃 매니저 : 컨테이너 내의 컴포넌트 배치를 자동으로 관리한다.
+  * 새로운 컴포넌트 추가 / 컨테이너 크기 변경 .. 등 컴포넌트의 배치, 재배치를 자동 처리.
+  
+### 레이아웃 매니저의 종류 (5가지)
+* 컨테이너 당 하나의 레이아웃매니저를 설정할 수 있다.
+  * `BorderLayout` 
+  * `FlowLayout` 
+  * `GridLayout` 
+  * `CardLayout` 
+  * `GridbagLayout`
+  
+* 한 Frame에 여러 레이아웃매니저를 사용해 컴포넌트들을 배치할 수도 있다.
+  * Frame에 여러 컨테이너를 넣고, 각 컨테이너별로 레이아웃을 설정하면 된다.
+  * (p.48 계산기 예제 참고) 
+
+### 컨테이너별 기본 레이아웃 매니저
+* 모든 컨테이너는 기본적으로 레이아웃 매니저가 지정되어 있다.
+  * `FlowLayout` - Panel, Applet
+  * `BorderLayout` - Window, Dialog, Frame
+  
+- - -
+ 
+### BorderLayout
+* BorderLayout : 
+  * 컨테이너를 North, South, East, West, Center(동,서,남,북,중앙) 의 5영역으로 나눈다.
+  * 각 영역에 하나의 컴포넌트만을 배치한다. 
+    * 한 영역에 여러 컴포넌트 배치하면, 마지막으로 추가한 컴포넌트만 보인다
+    * 한 영역에 여러 컴포넌트 넣으려면 Panel에 넣고 그 Panel을 영역에 넣어야 한다.
+  * Window, Frame, Dialog의 기본 layout이다.
+
+* Frame의 크기를 상하로 늘렸을 때
+  * West, Center, East 영역의 길이만 상하로 늘어나고, North South 영역에는 아무런 변화가 없다.
+* Frame의 크기를 좌우로 늘렸을 때
+  * North, Center, South영역의 길이만 좌우로 늘어나고, West East 영역에는 아무런 변화가 없다.
+
+
+#### BorderLayout의 메서드
+* `BorderLayout()` 또는 `BorderLayout(int hgap, int vgap)` (생성자)
+  * `hgap` : (선택) 좌우 간격
+  * `vgap` : (선택) 상하 간격
+* `add(String name, Component c)` 또는 `add(Component c, String name)`
+  * 각 영역에 컴포넌트 추가하는 메서드. 
+  * 5영역을 모두 채워야 하는 것은 아니고, 필요한 영역만 추가한다.
+
+#### BorderLayout 사용하기
+```java
+import java.awt.*;
+
+public class BorderLayoutTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("BorderLayoutTest");
+        f.setSize(200, 200);
+        // Frame 은 기본적으로 BorderLayout로 설정되어 있으므로, 따로 설정하지 않아도 됨
+
+        f.setLayout(new BorderLayout());
+        Button north = new Button("North");
+        Button south = new Button("South");
+        Button east = new Button("East");
+        Button west = new Button("West");
+        Button center = new Button("Center");
+
+        // Frame의 5개의 각 영역에 Button을 하나씩 추가한다
+        f.add(north, "North"); // f.add("North",north); . 와 같이 쓸 수도 있다
+        f.add(south, "South"); // South의 대소문자 정확히
+        f.add(east, "East"); // East대신 , BorderLayout.EAST  사용가능
+        f.add(west, "West");
+        f.add(center, "Center");
+
+        f.setVisible(true);
+    }
+}
+```
+
+- - -
+
+### FlowLayout
+* FlowLayout 
+  * 컴포넌트들이 추가되는 순서에 따라 왼쪽-오른쪽으로 배치된다.
+  * 공간이 부족하면 아랫줄에 추가된다. (줄바꿈)
+    * 마치 워드프로세스에서 글자를 입력하는 것과 비슷한 방식.
+  * 컴포넌트 정렬이 가능 : 왼쪽/오른쪽/가운데 정렬이 가능하다.
+  * 화면을 늘리거나 줄이면..
+    * 배치는 바뀌되, 같은 배치방식을 따른다.
+    * 컴포넌트 크기는 그대로 유지된다.
+  
+#### FlowLayout의 메서드, 생성자
+* `FlowLayout()` 또는 `FlowLayout(int align, int hgap, int vgap)` (생성자)
+  * 아무것도 지정하지 않으면 가운데정렬, 상하좌우여백 5px으로 생성된다. 
+  * `align` : 컴포넌트의 정렬 지정.
+    * `FlowLayout.LEFT`, `FlowLayout.CENTER`, `FlowLayout.RIGHT` 중 택1
+  * `hgap` : 컴포넌트 간 좌우 간격 지정.
+  * `vgap` : 컴포넌트 간 상하 간격 지정.
+  
+#### FlowLayout 사용하기
+```java
+import java.awt.*;
+
+public class FlowLayoutTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("FlowLayoutTest");
+        f.setSize(250, 100);
+        f.setLayout(new FlowLayout(FlowLayout.LEFT)); // 왼쪽정렬의  FlowLayout 생성
+
+        f.add(new Button("첫번째"));
+        f.add(new Button("두번째"));
+        f.add(new Button("세번째"));
+        f.add(new Button("네번째"));
+        f.add(new Button("다섯번째"));
+        f.setVisible(true);
+    }
+}
+```
+
+- - -
+
+### GridLayout
+* GridLayout
+  * 컨테이너를 테이블(표)처럼 행(row),열(col)로 나누어 컴포넌트를 배치한다.
+  * 컴포넌트들은 모두 같은 크기로 나누어진다.
+  * 컴포넌트들은 컨테이너의 첫 번째 행의 열들 - 두 번째 행의 열들 - .. 의 순서로 채워진다.
+  * 컨테이너의 크기를 변경하면..
+    * 각 영역이 모두 같은 비율로 커지거나 작아진다.
+    
+* GridbagLayout
+  * GridbagLayout은 GridLayout과 같이 컨테이너를 열과 행으로 나누어 컴포넌트들을 배치할 수 있다. 
+  * 각 영역은 서로 다른 크기로 지정될 수 있으며 인접한 열 또는 행으로의 확장이 가능하다. 
+  * (HTML문서에서의 Table레이아웃을 설정하는 것과 비슷하다.)
+
+    
+#### GridLayout의 생성자, 메서드
+* `GridLayout(int row, int col)` 또는 `GridLayout(int row, int col, int hgap, int vgap)` (생성자)
+  * `row`, `col` : (필수) 컨테이너를 몇 개의 행/열로 나눌지 지정.
+  * `hgap`, `vgap` : 각 영역 간 좌우/상하 간격을 지정.
+  
+#### GridLayout 사용하기
+```java
+import java.awt.*;
+
+public class GridLayoutTest {
+    public static void main(String[] args) {
+        Frame f = new Frame("GridLayoutTest");
+        f.setSize(150, 150);
+        f.setLayout(new GridLayout(3, 2));
+        // 3행 2열의 테이블을 만든다
+
+        f.add(new Button("1")); // 추가되는 순서대로 Button에 번호를 붙였다
+        f.add(new Button("2"));
+        f.add(new Button("3"));
+        f.add(new Button("4"));
+        f.add(new Button("5"));
+        f.add(new Button("6"));
+
+        f.setVisible(true);
+    }
+}
+```
+  
+- - -
+
+### CardLayout
+* CardLayout
+  * 여러 화면을 슬라이드처럼 바꿔가며 보여줄 수 있는 레이아웃이다.
+  * 여러 개의 컨테이너를 CardLayout에 추가한 다음, 
+  * 순서대로/임의로 컨네이너를 선택해 보여줄 수 있다.
+  * (예시) 설치마법사 처럼 단계별로 화면을 이동하는 경우.
+  
+#### CardLayout의 생성자, 메서드
+* `CardLayout()` 또는 `CardLayout(int hgap, int vgap)` (생성자)
+  * `hgap`, `vgap` : 컨테이너-CardLayout간의 수평/수직 간격 지정.
+* `add(Container parent, String name)`, `show(Container parent, String name)`
+  * `name` : 컨테이너의 이름 
+  * `parent` : 추가될/보여질 컨테이너
+* `first(Container parent)`, `last(Container parent)`
+* `previous(Container parent)`, `next(Container parent)`
+
+#### CardLayout 사용하기
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class CardLayoutTest {
+    public static void main(String[] args) {
+        final Frame f = new Frame("CardLayoutTest");
+        final CardLayout card = new CardLayout(10, 10);
+        f.setLayout(card); // CardLayout로 설정
+
+        Panel card1 = new Panel();
+        card1.setBackground(Color.lightGray);
+        card1.add(new Label("Card 1"));
+        Panel card2 = new Panel();
+        card2.add(new Label("Card 2"));
+        card2.setBackground(Color.orange);
+        Panel card3 = new Panel();
+        card3.add(new Label("Card 3"));
+        card3.setBackground(Color.cyan);
+
+        f.add(card1, "1"); // Frame에 card1을 "1"이라고 이름 붙여 추가한다
+        f.add(card2, "2");
+        f.add(card3, "3");
+
+        class Handler extends MouseAdapter {
+            public void mouseClicked(MouseEvent e) {
+                // 마우스 오른쪽 버튼을 눌렀을 때
+                if (e.getModifiers() == e.BUTTON3_MASK) {
+                    card.previous(f); // CardLayout의 이전 Panel을 보여준다
+                } else {
+                    card.next(f); // CardLayout의 다음 Panel을 보여준다
+                }
+            }
+        } // class Handler
+
+        card1.addMouseListener(new Handler());
+        card2.addMouseListener(new Handler());
+        card3.addMouseListener(new Handler());
+
+        f.setSize(200, 200);
+        f.setLocation(200, 200);
+        f.setVisible(true);
+
+        card.show(f, "1"); // Frame에 추가된 Component들 중 이름이 "1"인 것을 보여준다.
+    }
+}
+```
+
+- - - 
+- - - 
+
+# 이벤트 처리 event handling
