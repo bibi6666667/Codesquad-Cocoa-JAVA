@@ -12,7 +12,7 @@ public class TextFieldTest2 extends Frame {
     Button ok;
 
     TextFieldTest2(String title) { // 생성자
-        super(title); // Frame클래스의 생성자를 호출한다.
+        super(title); // 부모 클래스인 Frame의 생성자를 호출
 
         lid = new Label("ID :", Label.RIGHT); // Label의 text정렬을 오른쪽으로
         lpwd = new Label("Password :", Label.RIGHT);
