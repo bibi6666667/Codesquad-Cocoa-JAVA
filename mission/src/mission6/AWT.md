@@ -1333,11 +1333,7 @@ public class CardLayoutTest {
   
 - - - 
   
-### ②이벤트 관련 인터페이스들
-* ※ 구분
-  * `~Event` : 이벤트에 해당.
-  * `~Listener` : 인터페이스에 해당
-  * 이하 메서드 : 각 이벤트 인터페이스에 속하는 메서드에 해당.
+### ②이벤트 관련 인터페이스 및 AWT이벤트와 주요 메서드
 
 * ※ AWT이벤트들의 최고 조상은 AWTEvent이다.
 * ※ 이벤트 관련 클래스들은 `java.awt.event` 패키지에 속한다.
@@ -1349,16 +1345,31 @@ public class CardLayoutTest {
 * ✅ 각 메서드에서는 발생한 이벤트의 인스턴스에 대한 참조를 사용할 수 있다.
 * 따라서 이벤트 발생 시 생성된 이벤트 인스턴스들의 메서드 역시 사용할 수 있다!
 
-* 아래는 이벤트의 종류와 관련 인터페이스이다.
+* 아래는 AWT이벤트 종류, 이벤트별 주요 메서드 및 관련 인터페이스(`~Listener`) 이다.
+> ※ 구분
+> * `~Event` : **AWT이벤트**
+> * `~Listener` : **각 이벤트의 이벤트리스너 = 인터페이스**
+> * `~Listener` 하위 메서드 : 각 이벤트 인터페이스에 속하는 메서드.
+> * **굵은글씨 메서드** : **각 이벤트의 주요 메서드**.
+
+* 모든 이벤트 공통 주요 메서드
+  * **`Object getSource()`** : 이벤트 소스를 반환.
+    * java.util패키지의 EventObject에 정의되어 있는 메서드
+  * **`String paramString() `** : 이벤트와 관련된 정보를 문자열로 반환.
+    * java.awt패키지의 AWTEvent에 정의되어 있는 메서드
 * `ActionEvent`
   * `ActionListener`
     * `actionPeformed(ActonEvent ae)`
+  * **`String getActionCommand()`** : 이벤트의 ActionCommand를 반환.
+  * **`int getModifiers()`** : 이벤트 발생 시 누르고 있던 특수키를 반환.
+  * **`long getWhen()`** : 이벤트가 발생한 시간을 long값으로 반환.
 * `ComponentEvent` 
   * `ComponentListener` 
     * `componentMoved(ActonEvent ae)` 
     * `componentHidden(ActonEvent ae)` 
     * `componentResized(ActonEvent ae)` 
     * `componentShown(ActonEvent ae)` 
+  * **`Component getComponent()`** : 이벤트 소스(컴포넌트)를 반환한다.
 * `MouseEvent` 
   * `MouseMotionListener` 
     * `mouseDragged(MouseEvent me)` 
@@ -1369,14 +1380,26 @@ public class CardLayoutTest {
     * `mouseEntered(MouseEvent me)` 
     * `mouseExited(MouseEvent me)`
     * `mouseClicked(MouseEvent me)` 
+  * **`int getClickCount()`** : 마우스를 클릭한 횟수를 반환.
+  * **`Point getPoint()`** : 이벤트가 일어난 위치를 반환.
+  * **`int getX()`** : 이벤트가 일어난 위치의 x좌표를 반환.
+  * **`int getY()`** : 이벤트가 일어난 위치의 y좌표를 반환.
 * `MouseWheelEvent` 
   * `MouseWheelListener` 
-    * ` mouseWheelMoved(MouseWheelEvent e)` 
+    * ` mouseWheelMoved(MouseWheelEvent e)`
+  * **`int getScrollAmount()`** : 스크롤되어야 하는 양(amount)을 반환.
+  * **`int getScrollType()`** : 어떤 스크롤타입에 의해 이벤트가 발생했는지 알려줌.
+  * **`int getUnitsToScroll()`** : 단위당 스크롤해야 하는 양을 반환.
+  * **`int getWheelRotation()`** : 마우스 휠이 이동한 방향을 알려줌.
 * `KeyEvent` 
   * ` KeyListener` 
     * `keyPressed(KeyEvent ke)` 
     * `keyReleased(KeyEvent ke)` 
     * `keyTyped(KeyEvent ke)` 
+  * **`char getKeyChar()`** : 눌러진 키를 반환.
+  * **`int getKeyCode()`** : 눌러진 키의 코드를 반환.
+  * **`String getKeyModifiersText(int modifiers)`** : 눌러진 특수키(Alt, Ctrl) 또는 특수키 조합을 설명하는 문자열을 반환. 
+  * **`String getKeyText(int keyCode)`** : 눌러진 키를 HOME, F1과 같이 키를 설명한느 문자열로 반환.
 * `TextEvent` 
   * `TextListener` 
     * `textValueChanged(TextEvent te)` 
@@ -1384,12 +1407,20 @@ public class CardLayoutTest {
   * `FocusListener` 
     * `focusGained(FocusEvent fe)` 
     * `focusLost(FocusEvent fe)` 
+  * **`Component getOppositeComponent()`** : 포커스를 잃은 컴포넌트를 반환.
 * `ItemEvent` 
   * `ItemListener` 
-    * `itemStateChanged(ItemEvent ie)` 
+    * `itemStateChanged(ItemEvent ie)`
+  * **`Object getItem()`** : 이벤트가 발생한 item을 반환.
+  * **`ItemSelectable getItemSelectable()`** : 이벤트 소스를 반환.
+  * **`int getStateChange()`** : item의 상태(선택/선택해제)를 반환.
 * `AdjustmentEvent` 
   * `AdjustmentListener` 
-    * `adjustmentValueChanged(AdjustmentEvent ae)` 
+    * `adjustmentValueChanged(AdjustmentEvent ae)`
+  * **`Adjustable getAdjustable()`** : 이벤트 소스를 반환.
+  * **`int getAdjustmentType()`** : 값을 변경시킨 방법을 알려줌.
+  * **`int getValue()`** : 이벤트 발생 시의 (스크롤바의)값을 반환.
+  * **`boolean getValueIsAdjusting()`** : 값이 변경되고 있는 중인지 알려줌.
 * `WindowEvent` 
   * `WindowListener` 
     * `windowClosing(WindowEvent we)`
@@ -1403,11 +1434,17 @@ public class CardLayoutTest {
     * `windowGainedFocus(WindowEvent e)` 
     * `windowLostFocus(WindowEvent e)` 
   * `WindowStateListener` 
-    * `windowStateChanged(WindowEvent e)` 
+    * `windowStateChanged(WindowEvent e)`
+  * **`int getNewState()`** : 윈도우의 현재 상태를 반환.
+  * **`int getOldState()`** : 윈도우의 이전 상태를 반환.
+  * **`Window getOppositeWindow()`** : 이벤트 발생 전 포커스를 가졌던 윈도우를 반환.
+  * **`Window getWindow()`** : 이벤트 소스를 반환.
 * `ContainerEvent` 
   * `ContainerListener` 
     * `componentAdded(ContainerEvent ce)` 
     * `componentRemoved(ContainerEvent ce)` 
+  * **`Component getChild()`** : 컨테이너에 추가/삭제된 컴포넌트를 반환.
+  * **`Container getContainer()`** : 이벤트 소스를 반환.
   
 - - - 
   
@@ -1479,6 +1516,11 @@ public class CardLayoutTest {
 
 * `componentAdded(ContainerEvent ce)` : 컨테이너에 컴포넌트가 추가되었을 때
 * `componentRemoved(ContainerEvent ce)` : 컨테이너에 컴포넌트가 제거되었을 때
+
+- - - 
+
+### 각 이벤트의 주요 메서드
+
 
 
 - - - 
@@ -1632,7 +1674,7 @@ public class TextFieldTest2 extends Frame {
 * Frame 위에서 마우스 포인터를 움직이면 화면에 포인터의 좌표가 나타난다.
 * 원리 
   * Frame위에서 마우스포인터를 움직이면 MouseEvent가 발생하고 mouseMoved메서드가 호출됨.
-  * MouseEvent에는 getX()와 getY() 메서드가 있어 이 메서드들을 활용해 마우스포인터의 좌표를 알 수 있다.
+  * MouseEvent에는 `getX()`와 `getY()` 메서드가 있어 이 메서드들을 활용해 마우스포인터의 좌표를 알 수 있다.
 * 이벤트 소스 : Frame
 * 이벤트 리스너 : MouseMotionListener
 * 이벤트 핸들러 : EventHandler 클래스
@@ -1878,4 +1920,405 @@ public class TextEditor extends Frame { // Frame클래스 상속받아오기
 - - - 
 - - - 
 
-# 
+# AWT의 그래픽 - AWT로 그림 그리기
+* 이제 AWT에서 선과 도형이 어떻게, 어떤 과정으로 그려지는지 배워볼 것이다.
+* 자바를 이용해서 이미지 처리, 게임 등 높은 수준의 그래픽기능이 필요한 어플리케이션을 만드는 것도 가능하다.
+  * 자바의 그래픽처리 API - Java2D. JDK API의 일부로 java.awt패키지에 포함되어 있다
+* AWT는 자바 초기의 GUI프로그래밍 도구로, JDK버전이 높아지며 더 높은 기능의 API인 Swing, Java2D, 최근엔 JavaFX까지 개발되었다.
+  * 그럼에도 AWT가 Swing과 Java2D의 뿌리이기 때문에, AWT를 통해 자바 GUI프로그래밍을 배우는 것이 좋다.
+  
+## paint()와 Graphics
+* paint() : 컴포넌트에 그림을 그리기 위한 메서드.
+  * Component클래스에 정의되어 있어, 모든 컴포넌트에서 사용 가능하다.
+  * Frame, Canvas, Panel 등 그림을 그리려는 컴포넌트의 paint()를 오버라이딩 하면 된다.
+* paint() 선언
+  * `public void paint (Graphics g) { ... }`
+  * Graphics를 매개변수로 정의함.
+  * paint()를 작성하면 Graphics가 가진 다양한 그래픽 메서드를 이용해 그림을 그린다.
+  
+* Graphics
+  * 모든 컴포넌트는 Graphics 객체를 가지고 있다.
+  * Graphics객체에는 각 컴포넌트의 그래픽 관련정보가 담겨져 있다.
+  * 따라서 컴포넌트에 그림을 그리려면..
+  1. `getGraphics()`를 호출해 컴포넌트의 Graphics객체에 대한 참조를 얻어낸다
+  2. Graphics객체가 가진 다양한 그래픽 메서드를 이용해 그림을 그린다.
+  * Graphics객체 = 추상클래스인 Graphics를 완전히 구현한 클래스의 객체를 말함.
+  
+### Graphics가 제공하는 주요 메서드 
+1. 문자출력 관련 메서드 
+  * 문자열을 출력할 수 있으며, 출력할 문자열의 font를 지정할 수 있다.
+  * `void drawString(String str, int x, int y)` : x, y 위치에 문자열을 출력한다.
+  * `Font getFont()` : 현재 설정되어 있는 Font를 얻는다.
+  * `void setFont(Font font)` : 출력할 문자열의 폰트를 지정한다.
+  * `FontMetrics getFontMetrics()` : FontMetrics객체를 반환한다.
+    * FontMetrics객체는 지정된 폰트에 대한 상세한 정보를 제공한다.
+2. 색 관련 메서드
+  * 출력할 그림의 색을 지정하거나, 지정된 색의 정보를 얻을 수 있다.
+  * `Color getColor()` : 현재 설정되어 있는 Color를 얻는다.
+  * `void setColor(Color c)` : 출력할 색을 지정한다.
+3. 도형 관련 메서드
+  * 다양한 도형을 그리는 메서드.
+  * `draw~()` : 도형의 선만 그린다.
+  * `fill~()` : 도형 내부를 선의 색으로 채운다.
+  * 선(line)을 그리는 메서드
+    * `void drawLine(int x1, int y1, int x2, int y2)`
+  * 타원(oval)을 그리는 메서드
+    * `void drawOval(int x, int y, int width, int height)`
+    * `void fillOval(int x, int y, int width, int height)`
+  * 사각형(rectangle)을 그리는 메서드
+    * `void drawRect(int x, int y, int width, int height)`
+    * `void fillRect(int x, int y, int width, int height)`
+  * 둥근 사각형(roundrectangle)을 그리는 메서드
+    * `void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight)`
+    * `void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight)`
+  * 입체 사각형(3Drectangle)을 그리는 메서드
+    * `void draw3DRect(int x, int y, int width, int height, boolean raised)`
+    * `void fill3DRect(int x, int y, int width, int height, boolean raised)`
+  * 호(arc, 부채꼴)를 그리는 메서드
+    * `void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle)`
+    * `void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle)`
+      * `startAngle` : 부채꼴을 그리기 시작하는 각도
+      * `arcAngle` :  부채꼴을 표현하는 각도
+  * 다각형(polygon)을 그리는 메서드
+    * `void drawPolygon(int[] xPoints, int[] yPoints, int nPoints)`
+    * `void fillPolygon(int[] xPoints, int[] yPoints, int nPoints)`
+    * `void drawPolyline(int[] xPoints, int[] yPoints, int nPoints)`
+      * `int[] xPoints` : 점들의 x좌표 모음 배열
+      * `int[] yPoints` : 점들의 y좌표 모음 배열
+      * `int nPoints` : 점들의 갯수 
+4. 기타 메서드
+  * `void clearRect(int x, int y, int width, int height)` : 지정된 영역을 지운다.
+  * `boolean drawImage(Image img, int x, int y, ImageObserver observer)` : x,y의 위치에 이미지를 그린다.
+  
+#### Graphics메서드로 도형 그리기
+* 선, 원, 둥근 사각형, 다각형, 호 그리기
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class GraphicsEx1 extends Frame{ // Frame클래스를 상속받음
+    public static void main(String[] args) {
+        new GraphicsEx1("GraphicsEx1");
+    }
+
+    public GraphicsEx1 (String title) { // 생성자
+        super(title); // Frame의 생성자 호출
+        addWindowListener(new WindowAdapter() {
+            // 창닫기 버튼 구현
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        setBounds(100, 100, 400, 300);
+        setVisible(true);
+    }
+
+    public void paint (Graphics g) {
+        g.setFont(new Font("Serif", Font.PLAIN, 15));
+        g.drawString("Graphics를 이용해 그림을 그립니다.", 10, 50);
+
+        // 원 그리기
+        g.drawOval(50,100, 50,50); // 일반 원
+        // 파란색 원 그리기
+        g.setColor(Color.BLUE);//( 색 설정 -> 그리기 : 그 색깔로 그려짐 )
+        g.fillOval(100,100, 50,50); // 파란색 원
+
+        // 선 그리기
+        g.setColor(Color.red);
+        g.drawLine(100,100, 150,150);
+
+        // 둥근 사각형 그리기
+        g.fillRoundRect(200, 100, 120, 80, 30, 30);
+        // 다각형 그리기
+        g.setColor(Color.orange);
+        g.fillPolygon(new int[]{50, 100, 150, 200}, new int[]{250, 200, 200, 250}, 4);
+
+        // 호 그리기
+        g.setColor(Color.cyan);
+        g.fillArc(250, 200, 100, 100, 0, 120);
+        // startAngle : 부채꼴을 그리기 시작하는 각도
+        // arcAngle : 부채꼴을 표현할 각도
+    }
+}
+```
+
+- - - 
+
+## AWT쓰레드와 repaint()
+> ❓ `paint()`를 호출한 적이 없는데 어떻게 그림이 그려졌을까?
+> ❗ `paint()`는 직접 호출하지 않아도, AWT쓰레드에 의해 자동으로 호출되는 메서드이기 때문이다.
+
+* AWT쓰레드
+  * GUI어플리케이션을 실행하면 자동으로 생성되는 데몬 쓰레드이다.
+  * 평소에는 대기상태에 있다.
+  * 화면이 갱신되어야 할 때가 되면, `paint()` 또는 `update()`를 호출하여 화면을 다시 그린다.
+    * (AWT쓰레드에 의해) 자동으로 화면이 갱신되는 상황
+      * 처음 화면에 나타날 때
+      * 다른 화면에 가려져 있던 부분이 다시 화면에 나타날 때
+      * 아이콘화(최소화) 되어 있다가, 원래 크기로 화면에 나타날 때
+  * 위의 상황 외에도 화면을 갱신하려면 `repaint()`를 호출하면 된다.
+    * `repaint()` -> `update(Graphics g)` -> `paint(Graphics g)`
+    * `repaint()`는 AWT쓰레드에게 화면을 갱신할 것을 요청하고, 
+    * AWT쓰레드는 0.1초마다 확인해 요청이 있으면 `update()`를 호출하고,
+    * `update()`는 화면을 지운 뒤 `paint()`를 호출한다.
+    
+#### repaint() 예제 - 마우스 포인터 위치에 * 출력하기
+* Frame 내의 마우스 포인터의 위치에 "*"을 출력하는 예제.
+* Frame영역 내에서 마우스포인터를 움직이면 "*"도 따라 움직인다.
+  * `repaint()`를 이용해, 마우스포인터가 움직일 떄마다 xy좌표를 받아 "*" 새로 그리는 것이다.
+  
+* 원리
+  * 마우스를 움직이면 MouseEvent가 발생하고, EventHandler의 mouseMoved()가 호출된다.
+  * MouseEvent의 getX(), getY()를 통해 현재 마우스포인터의 위치를 얻어 인스턴스변수 x,y에 저장한다.
+  * `repaint()`를 통해 AWT쓰레드에게 Frame을 화면을 갱신하도록 요청한다.
+  * AWT쓰레드는 0.1초마다 확인해 요청이 있으면 `update()`를 호출해 화면을 지우고, `paint()`로 "*"를 새로 그린다.
+* 만약 `repaint()`가 없으면 마우스를 움직여도 "*"이 이동하지 않는다!
+
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class GraphicsEx2 extends Frame implements MouseMotionListener {
+ // Frame클래스 상속받고 MouseMotionListener구현.
+    int x = 0;
+    int y = 0;
+
+    public static void main(String[] args) {
+        new GraphicsEx2("GraphicsEx2");
+    }
+
+    public GraphicsEx2(String title) { // 생성자
+        super(title); // 부모클래스 Frame의 생성자 호출
+        addMouseMotionListener(this);//GraphicsEx2 객체에 MouseMotionListener 연결
+        addWindowListener(new WindowAdapter() { // 종료기능 - Adapter클래스 활용
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setBounds(100, 100, 500, 500);
+        setVisible(true);
+    }
+
+    public void paint(Graphics g) {
+        g.drawString("마우스를 움직여보세요.", 10, 50);
+        g.drawString("*", x, y);
+    }
+
+    // MouseMotionListener 이벤트처리 메서드
+    public void mouseMoved(MouseEvent me) {
+        x = me.getX(); // MouseEvent의 getX()메서드를 이용해 현재 마우스포인터의 x좌표를 얻어옴
+        y = me.getY(); // MouseEvent의 getY()메서드를 이용해 현재 마우스포인터의 y좌표를 얻어옴
+        repaint(); // 마우스 움직일 때마다 x,y좌표에 "*"가 있도록 새로 그리기.
+    }
+    public void mouseDragged(MouseEvent me){}
+}
+```
+
+* ※ 위의 소스코드에 아래 코드블럭을 추가하면 마우스포인터의 자취가 남게 된다.
+  * `update()`는 원래 컴포넌트영역을 지우고(배경색으로 채우고) paint()를 호출하는데,
+  * 아래 코드블럭으로 `update()`를 재정의해 컴포넌트영역을 지우지 않고 paint()만 호출하도록 오버라이딩했기 때문.
+```java
+/* 
+    public void update(Graphics g){
+        paint(g);
+    }
+    */
+```
+
+- - - 
+
+## Image를 이용해서 이미지 출력하기
+* Image 클래스
+  * gif, jpg와 같은 형식의 이미지 파일을 보여주거나 가상화면(off-screen)을 생성하는 데 사용된다.
+  
+* GUI프로그램에서 이미지 파일을 보여주려면 `Toolkit`, `.getImage(File img)`, `.drawImage()` 등을 활용한다.
+  * `drawImage(Image img, int x, int y, ImageObserver obj)`
+    * Graphics가 제공하는 메서드로, 이미지(img)를 지정된 위치(x,y)에 출력한다.
+    * `ImageObserver obj`
+      * 이미지가 로딩되는 데 시간이 걸리기 떄문에, 로딩이 진행되는 상태에 따라 화면에 다시 그려줘야 한다.
+      * "이미지가 로딩되고 있는 상태를 알려줄 대상"을 `ImageObserver`로 지정한다.
+      * 보통은 컴포넌트 자신(`this`)을 `ImageObserver`로 지정한다.
+        * 왜? 모든 AWT컴포넌트는 `ImageObserver`인터페이스를 구현했기 떄문이다.
+        
+* GUI프로그램에서 그림을 그릴 때는 보통..
+  * 실제 화면에 직접 그림을 그리는 대신,
+  * 가상화면에 그림을 그린 다음 → 실제화면으로 복사해 보여준다.
+  * 왜? 실제화면에 직접 그림을 그리면 깜빡거림이 발생하고, 실행 시 그린 그림이 보존되지 않기 때문.
+   
+#### Image로 가상화면 사용하기 예제 - 마우스로 그림 그리기 
+
+##### 마우스로 그림 그리기 (1) - drawString()으로 그리기 
+* Image(`img`)와 Image의 Graphics(`gImg`)를 멤버변수로 정의
+* 생성자에서 `createImage()`를 통해 Frame과 같은 크기의 Image를 생성해 img에 저장.
+* 생성된 Image에서 `getGraphics()`를 통해 Image에 대한 Graphics를 얻는다.
+  * 이렇게 얻어진 Graphics에 `drawString()`과 같은 메서드를 호출해 작업.
+  * 작업한 내용은 Image에 그려지게 된다.
+* `paint()`에서는 단순히 가상화면(`Image img`)에 그려진 내용을 Frame에 복사하기만 하면 된다.
+* `int getModifiers()` : 이벤트 발생 시 누르고 있던 특수키를 반환.
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class GraphicsEx4 extends Frame implements MouseMotionListener{
+    // Frame클래스 상속받고 MouseMotionListener구현.
+    int x = 0;
+    int y = 0;
+
+    Image img = null; // Image객체 선언
+    Graphics gImg = null; //
+
+    public static void main(String[] args) {
+        new GraphicsEx4("GraphicsEx4");
+    }
+
+    public GraphicsEx4(String title) { // 생성자
+        super(title); // 부모클래스 Frame의 생성자 호출
+        addMouseMotionListener(this);//GraphicsEx2 객체에 MouseMotionListener 연결
+        addWindowListener(new WindowAdapter() { // 종료기능 - Adapter클래스 활용
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setBounds(100, 100, 500, 500);
+        setVisible(true);
+
+        img = createImage(500, 500); //createImage()로 Image객체를 생성
+        gImg = img.getGraphics(); //getGraphics()를 통해 Image객체의 Graphics객체를 얻음
+        gImg.drawString("왼쪽 버튼을 누른 채로 마우스를 움직여 보세요.", 10, 50);
+        repaint();
+    }
+
+    public void paint(Graphics g) {
+        if(img != null) {
+            g.drawImage(img,0,0,this);
+            // 가상화면에 그려진 그림을 Frame에 복사
+        }
+    }
+
+    // MouseMotionListener 이벤트처리 메서드
+    public void mouseMoved(MouseEvent me) {}
+    // 마우스를 클릭해서 움직일(=드래그) 때만 그려지므로 mouseDragged()에 이벤트처리를 해 준다.
+    public void mouseDragged(MouseEvent me){
+        if (me.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK) {
+            // MouseEvent발생 시 누르고 있던 키 값 == 마우스 왼쪽 버튼 이면.
+            x = me.getX();
+            y = me.getY();
+            gImg.drawString("*", x, y);
+            repaint();
+        }
+    }
+} // class GraphicsEx4
+```
+##### 마우스로 그림 그리기 (2) - drawLine()으로 그리기
+* 위 예제의 drawString() 대신 drawLine()을 사용해 더 자유롭게 선을 그릴 수 있다.
+* 차이점 : `paint()`, `mouseMoved()`, `mouseDragged()` 부분이 다르다.
+  * ❓ 왜 다를까?..
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class GraphicsEx5 extends Frame implements MouseMotionListener {
+    // Frame클래스 상속받고 MouseMotionListener구현.
+    int x = 0;
+    int y = 0;
+
+    Image img = null; // Image객체 선언(가상화면)
+    Graphics gImg = null; // img의 Graphics객체를 담을 변수 선언 
+
+    public static void main(String[] args) {
+        new GraphicsEx5("GraphicsEx5");
+    }
+
+    public GraphicsEx5(String title) { // 생성자
+        super(title); // 부모클래스 Frame의 생성자 호출
+        addMouseMotionListener(this);//GraphicsEx2 객체에 MouseMotionListener 연결
+        addWindowListener(new WindowAdapter() { // 종료기능 - Adapter클래스 활용
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        setBounds(100, 100, 500, 500);
+        setVisible(true);
+
+        img = createImage(500, 500); // (가상화면) createImage()로 Image객체 생성
+        gImg = img.getGraphics(); //getGraphics()를 통해 Image객체의 Graphics객체를 얻음
+        gImg.drawString("왼쪽 버튼을 누른 채로 마우스를 움직여 보세요.", 10, 50);
+        repaint();
+    }
+
+    public void paint(Graphics g) {
+        if (img == null) return; // 가상화면에 그려진 게 없으면 paint() 종료
+        g.drawImage(img, 0, 0, this);
+        // 가상화면에 그려진 그림을 Frame에 복사
+
+    }
+
+    // MouseMotionListener 이벤트처리 메서드
+    public void mouseMoved(MouseEvent me) {
+        x = me.getX(); //MouseEvent 발생했을 때, 마우스포인터의 x좌표
+        y = me.getY();
+    }
+
+    public void mouseDragged(MouseEvent me) {
+        if (me.getModifiersEx() != MouseEvent.BUTTON1_DOWN_MASK) return;
+        // MouseEvent발생했을 때 누르고 있던 키 값이 마우스 왼쪽 버튼이 아니면 종료.
+        gImg.drawLine(x, y, me.getX(), me.getY());
+        x = me.getX();
+        y = me.getY();
+
+        repaint();
+    }
+} // class GraphicsEx5
+``` 
+
+- - - 
+
+#### 이미지 삽입하기 예제
+* 이미지(img)를 화면 중앙에 보여주는 예제.
+* 파일명은 경로를 함께 지정해주는 것이 좋다.
+  * 이미지파일이 예제의 클래스파일과 같은 경로에 있는 경우, 경로명은 생략할 수 있다.
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+class GraphicsEx6 extends Frame {
+    Image img = null;
+
+    public GraphicsEx6(String title) {//생성자
+        super(title);
+        addWindowListener(new WindowAdapter() {// 이벤트 - 창닫기 버튼
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        img = tk.getImage("sampleBibiImg.jpg");
+
+        setBounds(100, 100, 400, 300);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new GraphicsEx6("GraphicsEx6");
+    }
+
+    public void paint(Graphics g) {
+        if (img == null) return;
+
+        // Image의 크기를 얻는다
+        int imgWidth = img.getWidth(this); // getWidth(ImageObserver obj)
+        int imgHeight = img.getHeight(this); // getHeight(ImageObserver obj)
+
+        //이미지를  Frame의 중앙에 출력한다
+        g.drawImage(img, (getWidth() - imgWidth) / 2,
+                (getHeight() - imgHeight) / 2, this);
+    }
+} // class
+``` 
