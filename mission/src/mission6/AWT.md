@@ -964,8 +964,6 @@ public class ColorTest {
   * Frame내의 어디서나 실행 가능. (= 오른쪽 클릭)  
 
 
-이벤트핸들러, 캔버스 위주로 공부하기.
-
 #### 메뉴 컴포넌트의 메서드, 생성자
 * `setHelpMenu(Menu menu)` 
   * OS마다 Help메뉴가 다르게 취급된다. - 윈도우에서는 특별히 다르게 다뤄지지는 않음.
@@ -1186,7 +1184,7 @@ public class FlowLayoutTest {
     
 * GridbagLayout
   * GridbagLayout은 GridLayout과 같이 컨테이너를 열과 행으로 나누어 컴포넌트들을 배치할 수 있다. 
-  * 각 영역은 서로 다른 크기로 지정될 수 있으며 인접한 열 또는 행으로의 확장이 가능하다. 
+  * 각 영역은 **서로 다른 크기로 지정될 수 있으며 인접한 열 또는 행으로의 확장이 가능**하다. 
   * (HTML문서에서의 Table레이아웃을 설정하는 것과 비슷하다.)
 
     
@@ -1317,17 +1315,17 @@ public class CardLayoutTest {
 3-2. (이벤트 처리가 되어 있지 않다면) 아무 일도 일어나지 않음.
 
 * 이벤트 처리는 "예외처리"와 유사하다.
-  * 둘 다 클래스의 인스턴스가 생성되고, 일치하는 catch블럭/Listener가 처리함.
+  * 둘 다 클래스의 인스턴스가 생성되고, 일치하는 catch블럭/Listener가 예외/이벤트를 처리함.
   
 ## 이벤트 처리방법
 * 이벤트 처리(event handling)
   * (AWT프로그램 실행 중) 사용자의 어떤 동작에 의해 이벤트가 발생했을 때, 이에 대한 어떤 작업이 수행되도록 하는 것.
   
 * 이벤트 처리 방법
-  1. **①이벤트 리스너 추가/제거 메서드**들 중에서 필요한 것을 찾는다.
+  1. (이벤트 리스너 선택) **①이벤트 리스너 추가/제거 메서드**들 중에서 필요한 것을 찾는다.
     *(예시)창닫기 버튼 눌림. 마우스 왼쪽 클릭 ..
-  2. 선택한 메서드가 속해있는 **②이벤트 관련 인터페이스**를 구현하는 클래스를 작성한다.
-  3. 위에서 구현한 클래스의 인스턴스를 생성해 이벤트 소스에 Listener로 등록한다.
+  2. (이벤트 핸들러 작성) 선택한 메서드가 속해있는 **②이벤트 관련 인터페이스**를 구현하는 클래스를 작성한다.
+  3. (이벤트 리스너 작성) 위에서 구현한 클래스의 인스턴스를 생성해 이벤트 소스에 Listener로 등록한다.
   * ❗ EventHandler클래스는 WindowListener인터페이스를 구현해야 함.
     * 따라서 WindowListener인터페이스에 정의되어 있는 모든 추상 메서드의 body부분을 만들어 주어야 함.
     * 그래서 아무 내용도 없는 메서드들도 만든 것. (내용은 없지만 메서드 body들이 있어야 한다)
@@ -1337,9 +1335,9 @@ public class CardLayoutTest {
   
 ### ②이벤트 관련 인터페이스들
 * ※ 구분
-* `~Event` : 이벤트에 해당.
-* `~Listener` : 인터페이스에 해당
-* 이하 메서드 : 각 이벤트 인터페이스에 속하는 메서드에 해당.
+  * `~Event` : 이벤트에 해당.
+  * `~Listener` : 인터페이스에 해당
+  * 이하 메서드 : 각 이벤트 인터페이스에 속하는 메서드에 해당.
 
 * ※ AWT이벤트들의 최고 조상은 AWTEvent이다.
 * ※ 이벤트 관련 클래스들은 `java.awt.event` 패키지에 속한다.
@@ -1424,15 +1422,15 @@ public class CardLayoutTest {
 * ※ `ActionEvent ae` 
   * 고수준 이벤트로, 컴포넌트에 정의된 동작이 수행되었을 때 발생함.
   * ActionEvent가 발생하는 경우
-    * Button이 눌러졌을 때(클릭/스페이스바)
-    * Menu를 클릭했을 때
-    * TextField  에서 Enter키를 눌렀을 때
-    * List의 item 하나를 선택하여 더블클릭했을 때
+    * **Button이 눌러졌을 때(클릭/스페이스바)**
+    * **Menu를 클릭했을 때**
+    * **TextField 에서 Enter키를 눌렀을 때**
+    * **List의 item 하나를 선택하여 더블클릭했을 때**
   * 이 때는 MouseEvent나 KeyEvent가 발생해도, 최종적으로는 ActionEvent가 발생한 것으로 처리됨.
   * 따라서 ActionListener의 actionPerformed(ActionEvent ae)에 이벤트 발생시 수행할 코드를 작성해야 한다.
   * ActionEvent의 장점 : 버튼을 누르는 여러 방법이 존재하더라도 최종적으로는 ActionEvent만 발생하므로, 이에 대한 처리만 하면 된다.
    
-* 아래는 각 메서드와 각 메서드의 호출시기이다.
+* 아래는 메서드와, 각 메서드의 호출시기이다.
 * `actionPeformed(ActonEvent ae)`  
   * Button이 눌러졌을 때(클릭/스페이스바)
   * Menu를 클릭했을 때
@@ -1630,3 +1628,254 @@ public class TextFieldTest2 extends Frame {
 }
 ```
 
+#### 이벤트 예제 (2) - 마우스포인터 좌표 찍기
+* Frame 위에서 마우스 포인터를 움직이면 화면에 포인터의 좌표가 나타난다.
+* 원리 
+  * Frame위에서 마우스포인터를 움직이면 MouseEvent가 발생하고 mouseMoved메서드가 호출됨.
+  * MouseEvent에는 getX()와 getY() 메서드가 있어 이 메서드들을 활용해 마우스포인터의 좌표를 알 수 있다.
+* 이벤트 소스 : Frame
+* 이벤트 리스너 : MouseMotionListener
+* 이벤트 핸들러 : EventHandler 클래스
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+
+public class MouseEventTest extends Frame{ // Frame클래스 상속받기
+    Label location;
+
+    MouseEventTest (String title) { // 생성자
+        super(title); // 부모 클래스인 Frame(String title)호출
+        location = new Label("Mouse Pointer Location : ");
+        location.setSize(195,15);
+        location.setLocation(5,30);
+        location.setBackground(Color.yellow);
+        add(location);
+
+        //EventHandler의 인스턴스를 Frame의 Listener로 등록.
+        // 마우스 모션 이벤트 발생시 addMouseMotionListener가 감지하고, EventHandler가 이벤트 처리.
+        addMouseMotionListener(new EventHandler());
+
+        setSize(300,200);
+        setLayout(null);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        MouseEventTest mainWin = new MouseEventTest("MouseEventTest");
+    }
+
+    class EventHandler implements MouseMotionListener {
+        public void mouseDragged(MouseEvent e) {}
+        public void mouseMoved(MouseEvent e) {
+            // .setText() Label 내 텍스트를 ()로 바꾸기
+            location.setText("Mouse Pointer Location : (" + e.getX()
+                                                    + "," + e.getY() + ")");
+        }
+    } // EventHandler
+}
+```  
+
+#### 이벤트 예제 (3) - .getSource(), ItemListener 활용
+* Checkbox(radio button) 중 하나를 클릭하면 Frame의 배경색이 변경된다.
+* 원리
+  * Checkbox를 클릭하면 ItemEvent가 발생한다.
+  * itemStateChanged메서드가 호출된다.
+    * (itemStateChanged는 Checkbox, CheckboxItem, List, Choice 의 status가 변경되었을 때 호출된다.
+      * (selected <-> unselected 로 status가 전환될 때)
+  * 이 때 itemStateChanged메서드 내에서 getSource()를 호출하면 이벤트 소스(클릭한 Checkbox)를 얻을 수 있다.
+  * getSource()로 얻은 이벤트 소스에서 getLabel()로 Label을 얻는다.
+  * if문으로 어떤 체크박스에 체크했는지 확인한 뒤, 각 체크박스 Label에 맞는 배경색을 나타낸다. 
+
+* 이벤트 소스 : 클릭한 Checkbox
+* 이벤트 리스너 : ItemListener
+* 이벤트 핸들러 : EventHandler클래스 (implements ItemListener)
+
+```java
+import java.awt.*;
+import java.awt.event.*;
+
+public class CheckboxEventTest2 extends Frame { // Frame클래스 상속받아오기
+    CheckboxGroup group;
+    Checkbox cb1;
+    Checkbox cb2;
+    Checkbox cb3;
+
+    CheckboxEventTest2 (String title) { // 생성자
+        super(title); // 부모 클래스인 Frame의 생성자 호출
+        group = new CheckboxGroup();
+        cb1 = new Checkbox("red", group, true); // 기본 체크 상태
+        cb2 = new Checkbox("green", group, false);
+        cb3 = new Checkbox("blue", group, false);
+
+        cb1.addItemListener(new EventHandler());
+        cb2.addItemListener(new EventHandler());
+        cb3.addItemListener(new EventHandler());
+
+        setLayout(new FlowLayout());
+        add(cb1);
+        add(cb2);
+        add(cb3);
+        setBackground(Color.red);
+        setSize(300,200);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        CheckboxEventTest2 mainWin = new CheckboxEventTest2("CheckboxEventTest2");
+    }
+
+    class EventHandler implements ItemListener {
+        public void itemStateChanged(ItemEvent e) {
+            Checkbox cb = (Checkbox)e.getSource();
+            String color = cb.getLabel();
+            System.out.println(color); // 잘 찍히는지 확인용.
+            if(color.equals("red")) {
+                setBackground(Color.red);
+            } else if (color.equals("green")) {
+                setBackground(Color.green);
+            } else {
+                setBackground(Color.blue);
+            }
+        }
+    }
+}
+```
+
+#### 이벤트 예제 (4) - 간단 메모장(파일 편집기) 만들기 (FileDialog, Menu, TextArea)
+* 파일 읽기, 쓰기, 저장이 가능한 메모장 만들기
+  * fileOpen(), saveAs()메서드 내용들은 나중에 따로 공부해 이해하기.
+  * java.io.*; 패키지의 FileReader, BufferedReader, StringWriter / FileWriter, BuffredWriter
+* 메뉴 구성하기 (MenuBar, Menu, MenuItem)
+
+* TextEditor 생성자
+  * Frame에 MenuComponent들과 TextArea 구성
+  * 메뉴 각 기능에 EventHandler(ActionListener) 등록
+  * ActionListener가 호출되는 경우 -(2) **Menu를 클릭했을 때** 에 해당하므로 모두 ActionEvent에 해당.
+* MyHandler 클래스 : 이벤트 처리
+  * New - `.setText("")`공백 출력
+  * Open - FileDialog 통해 파일을 선택한 뒤, fileOpen() 메서드 호출해 화면에 보여줌.
+  * Save As.. - FileDialog 통해 현재 작성된 내용을 선택한 뒤 saveAs() 메서드 호출해 파일로 저장함.
+  * Exit - `System.exit(0);` 으로 프로그램 종료
+
+```java
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*; // 파일IO 패키지?
+
+public class TextEditor extends Frame { // Frame클래스 상속받아오기
+    String fileName;
+    TextArea content;
+    MenuBar  mb;
+    Menu     mFile;
+    MenuItem miNew, miOpen, miSaveAs, miExit;
+
+    TextEditor (String title) {
+        super(title); // 부모클래스 Frame의 생성자 호출
+        content = new TextArea();
+        add(content);
+
+        mb = new MenuBar();
+        mFile = new Menu("File");
+        miNew = new MenuItem("New");
+        miOpen = new MenuItem("Open");
+        miSaveAs = new MenuItem("Save As...");
+        miExit = new MenuItem("Exit");
+        
+        mFile.add(miNew); // Menu에 MenuItem들 추가
+        mFile.add(miOpen);
+        mFile.add(miSaveAs);
+        mFile.addSeparator(); // 메뉴 분리선(separator) 추가
+        mFile.add(miExit);
+        
+        mb.add(mFile); // MenuBar에 Menu 추가
+        setMenuBar(mb); // (setMenuBar메서드를 통해) Frame에 MenuBar 추가
+
+        // 메뉴에 이벤트핸들러 등록
+        MyHandler handler = new MyHandler();
+        miNew.addActionListener(handler);
+        miOpen.addActionListener(handler);
+        miSaveAs.addActionListener(handler);
+        miExit.addActionListener(handler);
+
+        setSize(300,200);
+        setVisible(true);
+    }
+
+    // 선택된 파일 내용을 읽어서 TextArea에 보여주는 메서드
+    void fileOpen(String fileName) {
+        // java.io.*;의 클래스들
+        FileReader fr;
+        BufferedReader br;
+        StringWriter sw;
+
+        try {
+            fr = new FileReader(fileName);
+            br = new BufferedReader(fr);
+            sw = new StringWriter();
+
+            int ch = 0;
+            while ((ch=br.read()) != -1) {
+                sw.write(ch);
+            }
+
+            br.close();
+            content.setText(sw.toString()); // TextArea에 불러온 내용을 적어준다
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    } // fileOpen()
+
+    // TextArea의 내용을 지정된 파일에 저장하는 메서드
+    void saveAs(String fileName) {
+        FileWriter fw;
+        BufferedWriter bw;
+        try {
+            fw = new FileWriter(fileName);
+            bw= new BufferedWriter(fw);
+            bw.write(content.getText()); // TextArea 의 내용을 파일에 저장한다.
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } // try
+    } // saveAs메서드의 끝
+
+    public static void main(String args[]) {
+        TextEditor mainWin = new TextEditor("Text Editor");
+    } // main메서드의 끝
+
+    // 이벤트 처리 : 메뉴 클릭했을 때 메뉴별 처리코드
+    class MyHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand(); // ActionEvent에서 발생한 명령 받아오기?
+
+            if (command.equals("New")) {
+                content.setText(""); // 공백 출력 (빈 페이지)
+            } else if(command.equals("Open")) {
+                FileDialog fileOpen =
+                        new FileDialog(TextEditor.this, "파일열기");
+                fileOpen.setVisible(true);
+                fileName = fileOpen.getDirectory() + fileOpen.getFile();
+                System.out.println(fileName);
+                // fileOpen() 메서드 호출 - 선택된 파일의 내용을 TextArea에 보여준다
+                fileOpen(fileName);
+            } else if(command.equals("Save As...")) {
+                FileDialog fileSave =
+                        new FileDialog(TextEditor.this,"파일저장 ",FileDialog.SAVE);
+                fileSave.setVisible(true);
+                fileName = fileSave.getDirectory() + fileSave.getFile();
+                System.out.println(fileName);
+                // saveAs() 메서드 호출 - 현재 TextArea의 내용을 선택된 파일에 저장한다
+                saveAs(fileName);
+            } else if(command.equals("Exit")) {
+                System.exit(0); // 프로그램 종료.
+            }
+        }
+    } // class MyHandler
+} // class TextEditor
+```
+
+- - - 
+- - - 
+
+# 
