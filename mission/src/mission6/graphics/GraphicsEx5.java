@@ -43,17 +43,16 @@ public class GraphicsEx5 extends Frame implements MouseMotionListener {
 
     // MouseMotionListener 이벤트처리 메서드
     public void mouseMoved(MouseEvent me) {
-        x = me.getX(); //MouseEvent 발생했을 때, 마우스포인터의 x좌표
+        x = me.getX(); //MouseEvent 발생했을 때마다, 마우스포인터의 x좌표를 멤버변수에 넣어줌
         y = me.getY();
     }
 
     public void mouseDragged(MouseEvent me) {
         if (me.getModifiersEx() != MouseEvent.BUTTON1_DOWN_MASK) return;
         // MouseEvent발생했을 때 누르고 있던 키 값이 마우스 왼쪽 버튼이 아니면 종료.
-        gImg.drawLine(x, y, me.getX(), me.getY());
+        gImg.drawLine(x, y, me.getX(), me.getY()); // mouseMoved()에서 넣은 xy좌표~드래그한xy좌표까지 선 그리기
         x = me.getX();
         y = me.getY();
-
         repaint();
     }
 } // class GraphicsEx5
