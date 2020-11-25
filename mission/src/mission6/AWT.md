@@ -135,6 +135,7 @@
   * false일 때는 사용자가 Frame의 크기를 변경할 수 없다.
  
 #### Frame 사용하기
+
 ```java
 import java.awt.*;
 
@@ -149,6 +150,7 @@ public class FrameTest {
 ```
 
 #### Frame을 화면 중앙에 나타나게 하기
+
 ```java
 import java.awt.*;
 
@@ -183,6 +185,7 @@ public class FrameTest2 {
 * `void setLabel(String label)` : Button에 나타나 있는 text를 변경한다.
 
 #### Button 사용하기
+
 ```java
 import java.awt.*;
 
@@ -213,6 +216,7 @@ public class ButtonTest {
   * `setLocation()`, `setSize()` 를 통해 위치와 크기를 설정.
   
 아래는 레이아웃매니저를 해제하고 직접 버튼 크기와 위치를 설정하는 예제이다.
+
 ```java
 import java.awt.*;
 
@@ -251,6 +255,7 @@ public class ButtonTest2 {
 * `String getSelectedItem()` : 현재 선택되어져 있는 item을 얻는다.
 
 #### Choice 사용하기
+
 ```java
 import java.awt.*;
 
@@ -323,6 +328,7 @@ public class ChoiceTest {
   * b가 true이면 multipleMode가 된다.
 
 #### List 사용하기
+
 ```java
 import java.awt.*;
 
@@ -383,7 +389,8 @@ public class ListTest {
 
 #### Label 사용하기
 * Frame에 레이아웃매니저가 설정되지 않은 경우, 컴포넌트들의 크기를 지정하지 않으면 화면에 표시되지 않는다.
-  * `.setSize()` 또는 `.setBounds()`를 통해 컴포넌트 크기를 지정해야 한다.  
+  * `.setSize()` 또는 `.setBounds()`를 통해 컴포넌트 크기를 지정해야 한다. 
+   
 ```java
 import java.awt.*;
 
@@ -434,6 +441,7 @@ public class LabelTest {
 * `void setState(boolean state)` : Checkbox의 상태를 설정. state를 true로 하면 Checkbox가 체크된 상태가 된다.
 
 #### Checkbox 사용하기
+
 ```java
 import java.awt.*;
 
@@ -498,6 +506,7 @@ TextComponent(TextField의 조상)로부터 상속받은 메서드
 
 
 #### TextField 사용하기
+
 ```java
 import java.awt.*;
 
@@ -550,6 +559,7 @@ public class TextFieldTest {
 * `void setEditable(boolean b)`
 
 #### TextArea 사용하기
+
 ```java
 import java.awt.*;
 
@@ -588,6 +598,7 @@ public class TextAreaTest {
 * `void setValue(int newValue)`
 
 #### Scrollbar 사용하기
+
 ```java
 import java.awt.*;
 
@@ -620,6 +631,7 @@ public class ScrollbarTest {
 * 사용자정의 컴포넌트를 만들 때도 사용 가능.
 
 #### Canvas 사용하기
+
 ```java
 import java.awt.*;
 
@@ -649,6 +661,7 @@ public class CanvasTest {
   * Panel은 컨테이너이므로 자신만의 레이아웃을 유지 가능 - Panel을 통해 컴포넌트 배치를 다양화할수 있다.
 
 #### Panel 사용하기
+
 ```java
 import java.awt.*;
 
@@ -687,6 +700,7 @@ public class PanelTest {
 * `ScrollPane()` 처럼 아무 설정 없이 객체를 생성할 수도 있다.
 
 #### ScrollPane 사용하기
+
 ```java
 import java.awt.*;
 
@@ -737,6 +751,7 @@ public class ScrollPaneTest {
   * 기본적으로 Dialog는 크기변경이 불가능. 
 
 #### Dialog 사용하기
+
 ```java
 import java.awt.*;
 
@@ -791,6 +806,7 @@ public class DialogTest {
   * FileDialog에 지정된 파일/디렉토리 설정.
  
 #### FileDialog 사용하기
+
 ```java
 import java.awt.*;
 
@@ -830,6 +846,7 @@ public class FileDialogTest {
   * `size` : 폰트의 크기 지정.
 
 #### Font 조회하기
+
 ```java
 import java.awt.*;
 
@@ -847,6 +864,7 @@ public class FontList {
 ```  
 
 #### Font 사용하기
+
 ```java
 import java.awt.*;
 
@@ -899,6 +917,7 @@ public class FontTest {
     * 0~255의 정수값 또는 0.0~1.0의 실수값을 갖는다.
 
 #### Color 사용하기
+
 ```java
 import java.awt.*;
 
@@ -941,6 +960,7 @@ public class ColorTest {
     }
 }
 ```
+
 - - -
 - - -
 
@@ -973,6 +993,7 @@ public class ColorTest {
 
 #### 메뉴 컴포넌트들과 PopupMenu 사용하기
 ##### 메뉴 컴포넌트
+
 ```java
 import java.awt.*;
 
@@ -1020,6 +1041,7 @@ public class MenuTest {
 ```
 
 ##### PopupMenu
+
 ```java
 import java.awt.*;
 import java.awt.event.*; // 이벤트 처리를 위해 추가.
@@ -1104,6 +1126,7 @@ public class PopupMenuTest {
   * 5영역을 모두 채워야 하는 것은 아니고, 필요한 영역만 추가한다.
 
 #### BorderLayout 사용하기
+
 ```java
 import java.awt.*;
 
@@ -1153,6 +1176,7 @@ public class BorderLayoutTest {
   * `vgap` : 컴포넌트 간 상하 간격 지정.
   
 #### FlowLayout 사용하기
+
 ```java
 import java.awt.*;
 
@@ -1194,6 +1218,7 @@ public class FlowLayoutTest {
   * `hgap`, `vgap` : 각 영역 간 좌우/상하 간격을 지정.
   
 #### GridLayout 사용하기
+
 ```java
 import java.awt.*;
 
@@ -1235,6 +1260,7 @@ public class GridLayoutTest {
 * `previous(Container parent)`, `next(Container parent)`
 
 #### CardLayout 사용하기
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -1526,6 +1552,7 @@ public class CardLayoutTest {
 - - - 
 
 #### 이벤트 처리 예시 - 닫기 버튼 동작시키기
+
 ```java
 package mission6.event;
 
@@ -1605,7 +1632,8 @@ class EventHandler implements WindowListener
   * `requestFocus()` : 원하는 컴포넌트가 포커스를 갖게 한다.
   * `selectAll()` : TextField 또는 TextArea에 입력된 text전체를 선택된 상태로 만든다
   * `setEchoChar(char c)` : - 실제로 입력된 값을 감추기 위해 화면에 보여질 문자를 지정한다
-  
+
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -1678,6 +1706,7 @@ public class TextFieldTest2 extends Frame {
 * 이벤트 소스 : Frame
 * 이벤트 리스너 : MouseMotionListener
 * 이벤트 핸들러 : EventHandler 클래스
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -1992,6 +2021,7 @@ public class TextEditor extends Frame { // Frame클래스 상속받아오기
   
 #### Graphics메서드로 도형 그리기
 * 선, 원, 둥근 사각형, 다각형, 호 그리기
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -2119,6 +2149,7 @@ public class GraphicsEx2 extends Frame implements MouseMotionListener {
 * ※ 위의 소스코드에 아래 코드블럭을 추가하면 마우스포인터의 자취가 남게 된다.
   * `update()`는 원래 컴포넌트영역을 지우고(배경색으로 채우고) paint()를 호출하는데,
   * 아래 코드블럭으로 `update()`를 재정의해 컴포넌트영역을 지우지 않고 paint()만 호출하도록 오버라이딩했기 때문.
+
 ```java
 /* 
     public void update(Graphics g){
@@ -2157,6 +2188,7 @@ public class GraphicsEx2 extends Frame implements MouseMotionListener {
   * 작업한 내용은 Image에 그려지게 된다.
 * `paint()`에서는 단순히 가상화면(`Image img`)에 그려진 내용을 Frame에 복사하기만 하면 된다.
 * `int getModifiers()` : 이벤트 발생 시 누르고 있던 특수키를 반환.
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -2213,10 +2245,12 @@ public class GraphicsEx4 extends Frame implements MouseMotionListener{
     }
 } // class GraphicsEx4
 ```
+
 ##### 마우스로 그림 그리기 (2) - drawLine()으로 그리기
 * 위 예제의 drawString() 대신 drawLine()을 사용해 더 자유롭게 선을 그릴 수 있다.
 * 차이점 : `paint()`, `mouseMoved()`, `mouseDragged()` 부분이 다르다.
   * ❓ 왜 다를까?..
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
@@ -2283,6 +2317,7 @@ public class GraphicsEx5 extends Frame implements MouseMotionListener {
 * 이미지(img)를 화면 중앙에 보여주는 예제.
 * 파일명은 경로를 함께 지정해주는 것이 좋다.
   * 이미지파일이 예제의 클래스파일과 같은 경로에 있는 경우, 경로명은 생략할 수 있다.
+
 ```java
 import java.awt.*;
 import java.awt.event.*;
