@@ -1333,12 +1333,13 @@ public class CardLayoutTest {
   단지 이벤트에 대한 이벤트 처리가 되어있지 않기 때문에 아무 일도 일어나지 않는 것.
   
 ## 이벤트의 발생과 처리
-1. 이벤트 발생
-  * 이벤트가 발생하면 해당 이벤트 클래스의 인스턴스가 생성됨.
+1. 이벤트 발생  
+  * 이벤트가 발생하면 해당 이벤트 클래스의 인스턴스가 생성됨.  
 2. 이벤트 처리가 되어 있는지 확인
-  * = 이벤트 리스너가 이벤트 소스에 등록되어 있는지 확인.
+  * = 이벤트 리스너가 이벤트 소스에 등록되어 있는지 확인.  
+  
 3-1. (이벤트 처리가 되어 있다면) 이벤트 리스너가 이벤트를 처리함.
-3-2. (이벤트 처리가 되어 있지 않다면) 아무 일도 일어나지 않음.
+3-2. (이벤트 처리가 되어 있지 않다면) 아무 일도 일어나지 않음.  
 
 * 이벤트 처리는 "예외처리"와 유사하다.
   * 둘 다 클래스의 인스턴스가 생성되고, 일치하는 catch블럭/Listener가 예외/이벤트를 처리함.
@@ -1369,9 +1370,10 @@ public class CardLayoutTest {
   * 제거 : `void remove리스너이름(이벤트핸들러이름)`
   
 * ✅ 각 메서드에서는 발생한 이벤트의 인스턴스에 대한 참조를 사용할 수 있다.
-* 따라서 이벤트 발생 시 생성된 이벤트 인스턴스들의 메서드 역시 사용할 수 있다!
+  * 따라서 이벤트 발생 시 생성된 이벤트 인스턴스들의 메서드 역시 사용할 수 있다!
 
 * 아래는 AWT이벤트 종류, 이벤트별 주요 메서드 및 관련 인터페이스(`~Listener`) 이다.
+
 > ※ 구분
 > * `~Event` : **AWT이벤트**
 > * `~Listener` : **각 이벤트의 이벤트리스너 = 인터페이스**
@@ -1500,11 +1502,10 @@ public class CardLayoutTest {
   * TextField  에서 Enter키를 눌렀을 때
   * List의 item 하나를 선택하여 더블클릭했을 때
   
-* `componentMoved(ActonEvent ae)`
-* `componentShown(ActonEvent ae)`
-* `componentHidden(ActonEvent ae)`
-* `componentResized(ActonEvent ae)`
-  * 각각 컴포넌트가 이동되었을 때 / 화면에 보일 떄 / 화면에 보이지 않을 때 / 크기가 변경되었을 때.
+* `componentMoved(ActonEvent ae)` : 컴포넌트가 이동되었을 때
+* `componentShown(ActonEvent ae)` : 컴포넌트가 화면에 보일 때
+* `componentHidden(ActonEvent ae)` : 컴포넌트가 화면에 보이지 않을 때
+* `componentResized(ActonEvent ae)` : 컴포넌트의 크기가 변경되었을 때
     
 * `mouseDragged(MouseEvent me)` : 마우스 버튼을 누른 채로 마우스를 움직였을 때  
 * `mouseMoved(MouseEvent me)` : 마우스 포인터를 이동시킬 때
@@ -1952,7 +1953,7 @@ public class TextEditor extends Frame { // Frame클래스 상속받아오기
 # AWT의 그래픽 - AWT로 그림 그리기
 * 이제 AWT에서 선과 도형이 어떻게, 어떤 과정으로 그려지는지 배워볼 것이다.
 * 자바를 이용해서 이미지 처리, 게임 등 높은 수준의 그래픽기능이 필요한 어플리케이션을 만드는 것도 가능하다.
-  * 자바의 그래픽처리 API - Java2D. JDK API의 일부로 java.awt패키지에 포함되어 있다
+  * 자바의 그래픽처리 API - Java2D. JDK API의 일부로 java.awt패키지에 포함되어 있다.
 * AWT는 자바 초기의 GUI프로그래밍 도구로, JDK버전이 높아지며 더 높은 기능의 API인 Swing, Java2D, 최근엔 JavaFX까지 개발되었다.
   * 그럼에도 AWT가 Swing과 Java2D의 뿌리이기 때문에, AWT를 통해 자바 GUI프로그래밍을 배우는 것이 좋다.
   
@@ -1987,8 +1988,8 @@ public class TextEditor extends Frame { // Frame클래스 상속받아오기
   * `void setColor(Color c)` : 출력할 색을 지정한다.
 3. 도형 관련 메서드
   * 다양한 도형을 그리는 메서드.
-  * `draw~()` : 도형의 선만 그린다.
-  * `fill~()` : 도형 내부를 선의 색으로 채운다.
+    * `draw~()` : 도형의 선만 그린다.
+    * `fill~()` : 도형 내부를 선의 색으로 채운다.
   * 선(line)을 그리는 메서드
     * `void drawLine(int x1, int y1, int x2, int y2)`
   * 타원(oval)을 그리는 메서드
@@ -2075,7 +2076,7 @@ public class GraphicsEx1 extends Frame{ // Frame클래스를 상속받음
 - - - 
 
 ## AWT쓰레드와 repaint()
-> ❓ `paint()`를 호출한 적이 없는데 어떻게 그림이 그려졌을까?
+> ❓ `paint()`를 호출한 적이 없는데 어떻게 그림이 그려졌을까?   
 > ❗ `paint()`는 직접 호출하지 않아도, AWT쓰레드에 의해 자동으로 호출되는 메서드이기 때문이다.
 
 * AWT쓰레드
@@ -2091,7 +2092,8 @@ public class GraphicsEx1 extends Frame{ // Frame클래스를 상속받음
     * `repaint()`는 AWT쓰레드에게 화면을 갱신할 것을 요청하고, 
     * AWT쓰레드는 0.1초마다 확인해 요청이 있으면 `update()`를 호출하고,
     * `update()`는 화면을 지운 뒤 `paint()`를 호출한다.
-    
+
+
 #### repaint() 예제 - 마우스 포인터 위치에 * 출력하기
 * Frame 내의 마우스 포인터의 위치에 "*"을 출력하는 예제.
 * Frame영역 내에서 마우스포인터를 움직이면 "*"도 따라 움직인다.
@@ -2160,9 +2162,9 @@ public class GraphicsEx2 extends Frame implements MouseMotionListener {
 
 - - - 
 
-## Image를 이용해서 이미지 출력하기
+## Image를 이용해서 이미지 출력하기(가상화면)
 * Image 클래스
-  * gif, jpg와 같은 형식의 이미지 파일을 보여주거나 가상화면(off-screen)을 생성하는 데 사용된다.
+  * gif, jpg와 같은 형식의 이미지 파일을 보여주거나 **가상화면(off-screen)**을 생성하는 데 사용된다.
   
 * GUI프로그램에서 이미지 파일을 보여주려면 `Toolkit`, `.getImage(File img)`, `.drawImage()` 등을 활용한다.
   * `drawImage(Image img, int x, int y, ImageObserver obj)`
@@ -2182,7 +2184,7 @@ public class GraphicsEx2 extends Frame implements MouseMotionListener {
 
 ##### 마우스로 그림 그리기 (1) - drawString()으로 그리기 
 * Image(`img`)와 Image의 Graphics(`gImg`)를 멤버변수로 정의
-* 생성자에서 `createImage()`를 통해 Frame과 같은 크기의 Image를 생성해 img에 저장.
+* 생성자에서 `createImage()`를 통해 Frame과 같은 크기의 Image(가상화면)를 생성해 img에 저장.
 * 생성된 Image에서 `getGraphics()`를 통해 Image에 대한 Graphics를 얻는다.
   * 이렇게 얻어진 Graphics에 `drawString()`과 같은 메서드를 호출해 작업.
   * 작업한 내용은 Image에 그려지게 된다.
@@ -2249,7 +2251,10 @@ public class GraphicsEx4 extends Frame implements MouseMotionListener{
 ##### 마우스로 그림 그리기 (2) - drawLine()으로 그리기
 * 위 예제의 drawString() 대신 drawLine()을 사용해 더 자유롭게 선을 그릴 수 있다.
 * 차이점 : `paint()`, `mouseMoved()`, `mouseDragged()` 부분이 다르다.
-  * ❓ 왜 다를까?..
+  * ❓ 왜 다를까?
+  * `mouseMoved()` : drawLine에서는 마우스포인터가 움직인 뒤 현재 포인터 좌표를 매번 멤버변수 x,y에 저장함.  
+  * `mouseDragged()` : 최신 상태의 마우스포인터위치(x,y)에서 드래그한 위치(getX, getY)까지 매번 선을 그림.
+  * 그래서 drawString()일 때와 이벤트 처리가 다른 것!
 
 ```java
 import java.awt.*;
@@ -2295,14 +2300,14 @@ public class GraphicsEx5 extends Frame implements MouseMotionListener {
 
     // MouseMotionListener 이벤트처리 메서드
     public void mouseMoved(MouseEvent me) {
-        x = me.getX(); //MouseEvent 발생했을 때, 마우스포인터의 x좌표
+        x = me.getX(); //MouseEvent 발생했을 때마다, 마우스포인터의 x좌표를 멤버변수에 넣어줌
         y = me.getY();
     }
 
     public void mouseDragged(MouseEvent me) {
         if (me.getModifiersEx() != MouseEvent.BUTTON1_DOWN_MASK) return;
         // MouseEvent발생했을 때 누르고 있던 키 값이 마우스 왼쪽 버튼이 아니면 종료.
-        gImg.drawLine(x, y, me.getX(), me.getY());
+        gImg.drawLine(x, y, me.getX(), me.getY()); // mouseMoved()에서 넣은 xy좌표~드래그한xy좌표까지 선 그리기
         x = me.getX();
         y = me.getY();
 
