@@ -1,7 +1,6 @@
 package projectMyPick31;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 // View : 화면 표시요소를 담당.
 // View_console : GUI(AWT) 구현 전까지 콘솔창에서 View기능을 담당.
@@ -11,7 +10,7 @@ public class View_console {
     Model model = new Model();
 
     void start() {
-        System.out.println("=============🍧배스킨라빈스 아이스크림 필터링 서비스, MyPick31입니다.=============");
+        System.out.println("============= 🍧 배스킨라빈스 아이스크림 필터링 서비스, MyPick31입니다. =============");
     }
 
     void returnHome() {
@@ -70,9 +69,9 @@ public class View_console {
     String chooseBase(){ // Base Topping Syrup 선택
         sc.nextLine(); // 개행문자 제거
         System.out.println("------------베이스 목록입니다------------");
-        int allBaseLength = model.allBases.length;
+        int allBaseLength = model.bases.length;
         for (int i = 0; i < allBaseLength; i++) {
-            System.out.print((i+1) + "." + model.allBases[i] + " ");
+            System.out.print((i+1) + "." + model.bases[i] + " ");
             if ((i + 1) % 5 == 0)
                 System.out.println("");
         }
@@ -83,9 +82,9 @@ public class View_console {
 
     String chooseTopping(){
         System.out.println("------------토핑 목록입니다------------");
-        int allToppingLength = model.allToppings.length;
+        int allToppingLength = model.toppings.length;
         for (int i = 0; i < allToppingLength; i++) {
-            System.out.print((i+1) + "." + model.allToppings[i] + " ");
+            System.out.print((i+1) + "." + model.toppings[i] + " ");
             if ((i + 1) % 5 == 0)
                 System.out.println("");
         }
@@ -96,9 +95,9 @@ public class View_console {
 
     String chooseSyrup(){
         System.out.println("------------시럽 목록입니다------------");
-        int allSyrupLength = model.allSyrups.length;
+        int allSyrupLength = model.syrups.length;
         for (int i = 0; i < allSyrupLength; i++) {
-            System.out.print((i+1) + "." + model.allSyrups[i] + " ");
+            System.out.print((i+1) + "." + model.syrups[i] + " ");
             if ((i + 1) % 5 == 0)
                 System.out.println("");
         }

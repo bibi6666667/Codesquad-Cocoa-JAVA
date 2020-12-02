@@ -17,8 +17,14 @@ public class Controller {
         model.readSignatures();
         model.readSeasons();
         model.makeAllSignaturesNSeasons();
-        System.out.println(model.allSignatures.size());
-        System.out.println(model.allSeasons.size());
+        model.putAllBases();
+        model.putAllTopping();
+        model.putAllSyrup();
+        System.out.println("전체 시그니처플레이버 " + model.allSignatures.size());
+        System.out.println("전체 시즌 플레이버 " + model.allSeasons.size());
+        System.out.println("전체 베이스 " + model.allBases.size());
+        System.out.println("전체 토핑 " + model.allToppings.size());
+        System.out.println("전체 시럽 " + model.allSyrups.size());
         System.out.println("준비 끝!");
         home();
     }
@@ -36,10 +42,10 @@ public class Controller {
                 String toppingInput = view.chooseTopping();
                 String syrupInput = view.chooseSyrup();
                 String[] transferredBaseInput = transferBaseInput(baseInput);
-                filterBase(transferredBaseInput);
+                ArrayList<String> filteredBaseResult = filterBase(transferredBaseInput);
                 filterTopping(toppingInput);
                 filterSyrup(syrupInput);
-                filterResult();
+                filterResult(filteredBaseResult);
                 view.returnHome();
                 home();
                 break;
@@ -74,45 +80,52 @@ public class Controller {
 
     String[] transferBaseInput(String baseInputNum){
         String[] baseInputNumArr = baseInputNum.split(",");
-        String[] baseInputStrArr = new String[3]; // 3개까지 선택가능?
+        String[] baseInputStrArr = new String[3]; // 3개까지 선택가능
         for(int i = 0; i < baseInputNumArr.length; i++){ // 숫자배열의 0번째부터.
             int toTransfer = Integer.parseInt(baseInputNumArr[i]); // 0, 1, 2..번쨰 (Str->Int)
-            String transfered = model.allBases[toTransfer - 1]; //
-            System.out.println(transfered);
+            String transfered = model.bases[toTransfer - 1]; //
             baseInputStrArr[i] = transfered;
         }
         return baseInputStrArr;
     }
 
-    void filterBase(String[] transferredBaseInput){// 선택한 베이스와 일치하는 플레이버 모두 찾기. 최대 2개 선택 가능
+    ArrayList<String> filterBase(String[] transferredBaseInput){// 최소 1개, 최대 3개 선택 가능
         int baseInputArrLength = transferredBaseInput.length;
-        ArrayList allSignaturesNSeasons = model.allSignaturesNSeasons;
+        ArrayList<String> allSignaturesNSeasons = model.allSignaturesNSeasons;
         int allSignaturesNSeasonsSize = allSignaturesNSeasons.size();
-        ArrayList<String> filterdBaseResult; // 필터링 결과값 ) 플레이버 id값(String인 숫자)넣기
-        for(int i = 0; i < baseInputArrLength; i++) { // 선택 베이스목록 각각과 일치하는 플레이버 찾기
+        ArrayList<String> filteredBaseResult = new ArrayList<>(); // 필터링 결과값 : 플레이버명
+        for(int i = 0; i < baseInputArrLength; i++) { // for1. 선택 베이스목록 각각에 대해..
             String aBaseInput = transferredBaseInput[i];
-            System.out.println(aBaseInput + "를 찾습니다.");
-            //String.contains("");
-            //해쉬맵
-            //value에 ArrayList 넣기?
-
-            int indexOfBase;
-            //System.out.println(allSignaturesNSeasons.get(indexOfBase));
+            if (aBaseInput == null) break;
+            System.out.println(aBaseInput + "를/을 찾습니다.");
+            for (int j = 0; j < allSignaturesNSeasonsSize; j++) { // for2. 시그니처/시즌에서 각 베이스와 일치하는 플레이버 찾기
+                String aSignatureOrSeason = allSignaturesNSeasons.get(j);
+                String comparedBase = aSignatureOrSeason.split("/")[3]; // 베이스는 인덱스3
+                if (comparedBase.contains(aBaseInput)){
+                    String result = aSignatureOrSeason.split("/")[1]; // 플레이버명은 인덱스1
+                    filteredBaseResult.add(result);
+                }
+            }
         }
+        return filteredBaseResult;
     }
 
-    void filterTopping(String toppingInput){
-        System.out.println(toppingInput);
+    void filterTopping(String toppingInput){ // 최대 2개
     }
 
-    void filterSyrup(String syrupInput){
-        System.out.println(syrupInput);
+    void filterSyrup(String syrupInput){ // 최대 1개
     }
 
-    void filterResult(){
-        System.out.println("필터링 결과는..");
+    void filterResult(ArrayList<String> baseResult){ // filterBase, filterTopping, filterSyrup의 교집합 보여주기
+        int baseResultSize = baseResult.size();
+        System.out.println("총 " + baseResultSize + "개의 플레이버가 검색되었습니다.");
+        for (int i = 0; i < baseResultSize; i++) {
+            System.out.print(baseResult.get(i));
+            if (i == baseResultSize - 1) continue;
+            System.out.print(",");
+            if ((i + 1) % 5 == 0) System.out.println(""); // 5개씩 한 줄로 출력
+        }
+        System.out.println("\n검색이 완료되었습니다.");
     }
-
-
 }
 
