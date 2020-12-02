@@ -28,8 +28,6 @@ public class Controller {
         int input = view.home();
         switch (input) {
             case 1 :
-                System.out.println(model.allSignatures.size());
-                System.out.println(model.allSeasons.size());
                 int viewInput = view.printWhat();
                 printWhat(viewInput);
                 break;
@@ -37,9 +35,10 @@ public class Controller {
                 String baseInput = view.chooseBase();
                 String toppingInput = view.chooseTopping();
                 String syrupInput = view.chooseSyrup();
-                model.filterBase(baseInput);
-                model.filterTopping(toppingInput);
-                model.filterSyrup(syrupInput);
+                String[] transferredBaseInput = transferBaseInput(baseInput);
+                filterBase(transferredBaseInput);
+                filterTopping(toppingInput);
+                filterSyrup(syrupInput);
                 filterResult();
                 view.returnHome();
                 home();
@@ -62,9 +61,6 @@ public class Controller {
                 home();
                 break;
             case 2 :
-
-                System.out.println(model.allSignatures.size());
-                System.out.println(model.allSeasons.size());
                 view.printSeasons();
                 view.returnHome();
                 home();
@@ -76,7 +72,42 @@ public class Controller {
         }
     }
 
+    String[] transferBaseInput(String baseInputNum){
+        String[] baseInputNumArr = baseInputNum.split(",");
+        String[] baseInputStrArr = new String[3]; // 3개까지 선택가능?
+        for(int i = 0; i < baseInputNumArr.length; i++){ // 숫자배열의 0번째부터.
+            int toTransfer = Integer.parseInt(baseInputNumArr[i]); // 0, 1, 2..번쨰 (Str->Int)
+            String transfered = model.allBases[toTransfer - 1]; //
+            System.out.println(transfered);
+            baseInputStrArr[i] = transfered;
+        }
+        return baseInputStrArr;
+    }
 
+    void filterBase(String[] transferredBaseInput){// 선택한 베이스와 일치하는 플레이버 모두 찾기. 최대 2개 선택 가능
+        int baseInputArrLength = transferredBaseInput.length;
+        ArrayList allSignaturesNSeasons = model.allSignaturesNSeasons;
+        int allSignaturesNSeasonsSize = allSignaturesNSeasons.size();
+        ArrayList<String> filterdBaseResult; // 필터링 결과값 ) 플레이버 id값(String인 숫자)넣기
+        for(int i = 0; i < baseInputArrLength; i++) { // 선택 베이스목록 각각과 일치하는 플레이버 찾기
+            String aBaseInput = transferredBaseInput[i];
+            System.out.println(aBaseInput + "를 찾습니다.");
+            //String.contains("");
+            //해쉬맵
+            //value에 ArrayList 넣기?
+
+            int indexOfBase;
+            //System.out.println(allSignaturesNSeasons.get(indexOfBase));
+        }
+    }
+
+    void filterTopping(String toppingInput){
+        System.out.println(toppingInput);
+    }
+
+    void filterSyrup(String syrupInput){
+        System.out.println(syrupInput);
+    }
 
     void filterResult(){
         System.out.println("필터링 결과는..");
