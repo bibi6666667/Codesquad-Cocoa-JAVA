@@ -18,23 +18,24 @@ public class Model {
             "과자", "케이크", "기타"};
     String[] allSyrups = {"초콜릿", "카라멜", "과일", "기타"};
 
+
     ArrayList<String> allSignatures = new ArrayList<>(20);
     ArrayList<String> allSeasons = new ArrayList<>(200);
-    ArrayList<String> allSignaturesNSeasons = new ArrayList<>(220);
+    static ArrayList<String> allSignaturesNSeasons = new ArrayList<>(220);
 
     ArrayList<String> baseFilteredFlavor = new ArrayList<>();
     ArrayList<String> toppingFilteredFlavor = new ArrayList<>();
     ArrayList<String> syrupFilteredFlavor = new ArrayList<>();
 
-    void makeAllSignaturesNSeasons(){
+    void makeAllSignaturesNSeasons() {
         allSignaturesNSeasons.addAll(allSignatures);
         allSignaturesNSeasons.addAll(allSeasons);
     }
 
-    void readSignatures(){
+    void readSignatures() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(signatures));
-            while(true) {
+            while (true) {
                 String line = bufferedReader.readLine();
                 if (line == null) break;
                 allSignatures.add(line);
@@ -45,10 +46,10 @@ public class Model {
         }
     }
 
-    void readSeasons(){
+    void readSeasons() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(seasons));
-            while(true) {
+            while (true) {
                 String line = bufferedReader.readLine();
                 if (line == null) break;
                 allSeasons.add(line);
@@ -59,16 +60,5 @@ public class Model {
         }
     }
 
-    void filterBase(String baseInput){
-        System.out.println(baseInput);
-    }
-
-    void filterTopping(String toppingInput){
-        System.out.println(toppingInput);
-    }
-
-    void filterSyrup(String syrupInput){
-        System.out.println(syrupInput);
-    }
 
 }
