@@ -41,7 +41,7 @@ public class Controller {
                 String baseInput = view.chooseBase();
                 String toppingInput = view.chooseTopping();
                 String syrupInput = view.chooseSyrup();
-                String[] transferredBaseInput = transferBaseInput(baseInput);
+                ArrayList<String> transferredBaseInput = manageBaseInput(baseInput);
                 ArrayList<String> filteredBaseResult = filterBase(transferredBaseInput);
                 filterTopping(toppingInput);
                 filterSyrup(syrupInput);
@@ -78,28 +78,41 @@ public class Controller {
         }
     }
 
-    String[] transferBaseInput(String baseInputNum) {
+    ArrayList<String> manageBaseInput(String baseInputNum) {
         String[] baseInputNumArr = baseInputNum.split(",");
         String[] baseInputStrArr = new String[3]; // 3개까지 선택가능
+        ArrayList<String> managedBaseInput = new ArrayList<>(); // 최종결과값(선택값+선택하위값)
         for (int i = 0; i < baseInputNumArr.length; i++) { // 숫자배열의 0번째부터.
             int toTransfer = Integer.parseInt(baseInputNumArr[i]); // 0, 1, 2..번쨰 (Str->Int)
             String transfered = model.bases[toTransfer - 1]; //
-            baseInputStrArr[i] = transfered;
+            managedBaseInput.add(transfered);
+            // 하위카테고리
+            String base2Str = model.allBases.get(transfered); // 선택한베이스1개가 키인 값(하위카테고리)
+            if (base2Str == "") continue; // 하위카테고리 없으면 스킵
+            System.out.println(transfered + "의 하위카테고리는 " + base2Str);
+            String[] base2Arr = base2Str.split(",");
+            for(int j = 0; j < base2Arr.length; j++) {
+                managedBaseInput.add(base2Arr[j]);
+            }
         }
-        return baseInputStrArr;
+        // TODO : baseInputStrArr의 각 항목 하위카테고리 찾아오
+        //print
+        for(String baseResult : managedBaseInput) {
+            System.out.println(baseResult);
+        }
+        return managedBaseInput;
     }
 
-    ArrayList<String> filterBase(String[] transferredBaseInput) {// 최소 1개, 최대 3개 선택 가능
-        int baseInputArrLength = transferredBaseInput.length;
+    ArrayList<String> filterBase(ArrayList<String> transferredBaseInput) {// 최소 1개, 최대 3개 선택 가능
+        int baseInputSize = transferredBaseInput.size();
         ArrayList<String> allSignaturesNSeasons = model.allSignaturesNSeasons;
         int allSignaturesNSeasonsSize = allSignaturesNSeasons.size();
         ArrayList<String> filteredBases = new ArrayList<>(); // 중간 결과값
-        int filteredBasesSize = filteredBases.size();
         ArrayList<String> filteredResult = new ArrayList<>(); // 중복제거한 최종 결과값
-        for (int i = 0; i < baseInputArrLength; i++) { // for1. 선택 베이스목록 각각에 대해..
-            String aBaseInput = transferredBaseInput[i];
-            if (aBaseInput == null) break;
-            System.out.println(aBaseInput + "를/을 찾습니다.");
+        for (int i = 0; i < baseInputSize; i++) { // for1. 선택 베이스목록 각각에 대해..
+            String aBaseInput = transferredBaseInput.get(i);
+            // if (aBaseInput == null) break;
+            // System.out.println(aBaseInput + "를/을 찾습니다.");
             for (int j = 0; j < allSignaturesNSeasonsSize; j++) { // for2. 시그니처/시즌에서 각 베이스와 일치하는 플레이버 찾기
                 String aSignatureOrSeason = allSignaturesNSeasons.get(j);
                 String comparedBase = aSignatureOrSeason.split("/")[3]; // 베이스는 인덱스3
