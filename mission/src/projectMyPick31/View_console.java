@@ -68,6 +68,7 @@ public class View_console {
     
     String chooseBase(){ // Base Topping Syrup 선택
         sc.nextLine(); // 개행문자 제거
+        System.out.println("베이스, 토핑, 시럽 중 적어도 하나는 선택해 주세요");
         System.out.println("------------베이스 목록입니다------------");
         int allBaseLength = model.bases.length;
         for (int i = 0; i < allBaseLength; i++) {
@@ -75,7 +76,7 @@ public class View_console {
             if ((i + 1) % 5 == 0)
                 System.out.println("");
         }
-        System.out.println("\n 베이스를 선택해 주세요. (필수 - 최소 1개, 최대 3개 선택. 여러 개 선택시 ,로 구분. ) \n >");
+        System.out.println("\n 베이스를 선택해 주세요. (최대 2개 선택. 여러 개 선택시 ,로 구분. 선택하지 않으려면 enter)\n >");
         String baseInput = sc.nextLine();
         return baseInput;
     }
