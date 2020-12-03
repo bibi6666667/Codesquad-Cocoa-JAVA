@@ -20,11 +20,6 @@ public class Controller {
         model.putAllBases();
         model.putAllTopping();
         model.putAllSyrup();
-        System.out.println("전체 시그니처플레이버 " + model.allSignatures.size());
-        System.out.println("전체 시즌 플레이버 " + model.allSeasons.size());
-        System.out.println("전체 베이스 " + model.allBases.size());
-        System.out.println("전체 토핑 " + model.allToppings.size());
-        System.out.println("전체 시럽 " + model.allSyrups.size());
         System.out.println("준비 끝!");
         home();
     }
@@ -64,12 +59,12 @@ public class Controller {
     void printWhat(int input) {
         switch (input) {
             case 1:
-                view.printSignatures();
+                view.printSignatures(model.allSignatures);
                 view.returnHome();
                 home();
                 break;
             case 2:
-                view.printSeasons();
+                view.printSeasons(model.allSeasons);
                 view.returnHome();
                 home();
                 break;
@@ -86,7 +81,6 @@ public class Controller {
         String managedBaseInputA = "";
         String managedBaseInputB = "";
         if (baseInputNumArr[0].equals("")) { // 입력 없으면 값 없이 반환
-            System.out.println("베이스 입력 없음");
             return managedBaseInputAB;
         }
         for (int i = 0; i < baseInputNumArr.length; i++) { // 숫자배열의 0번째부터.
@@ -100,7 +94,6 @@ public class Controller {
             // 하위카테고리
             String subBaseStr = model.allBases.get(transfered); // 선택한베이스1개가 키인 값(하위카테고리)
             if (subBaseStr == "") continue; // 하위카테고리 없으면 다음 베이스로.
-            System.out.println(transfered + "의 하위카테고리는 " + subBaseStr);
             String[] subBaseArr = subBaseStr.split(",");
             for (int j = 0; j < subBaseArr.length; j++) {
                 if (i == 0) {
@@ -180,7 +173,6 @@ public class Controller {
         String managedToppingInputA = "";
         String managedToppingInputB = "";
         if (toppingInputNumArr[0].equals("")) { // 입력 없으면 값 없이 반환
-            System.out.println("토핑 입력 없음");
             return managedToppingInputAB;
         }
         for (int i = 0; i < toppingInputNumArr.length; i++) { // 숫자배열의 0번째부터.
@@ -194,7 +186,6 @@ public class Controller {
             // 하위카테고리
             String subToppingStr = model.allToppings.get(transfered); // 선택한베이스1개가 키인 값(하위카테고리)
             if (subToppingStr == "") continue; // 하위카테고리 없으면 다음 베이스로.
-            System.out.println(transfered + "의 하위카테고리는 " + subToppingStr);
             String[] subToppingArr = subToppingStr.split(",");
             for (int j = 0; j < subToppingArr.length; j++) {
                 if (i == 0) {
@@ -274,7 +265,6 @@ public class Controller {
         String managedSyrupInputA = "";
         String managedSyrupInputB = "";
         if (syrupInputNumArr[0].equals("")) { // 입력 없으면 값 없이 반환
-            System.out.println("시럽 입력 없음");
             return managedSyrupInputAB;
         }
         for (int i = 0; i < syrupInputNumArr.length; i++) { // 숫자배열의 0번째부터.
@@ -288,7 +278,6 @@ public class Controller {
             // 하위카테고리
             String subSyrupStr = model.allSyrups.get(transfered); // 선택한시럽1개가 키인 값(하위카테고리)
             if (subSyrupStr == "") continue; // 하위카테고리 없으면 다음 시럽으로.
-            System.out.println(transfered + "의 하위카테고리는 " + subSyrupStr);
             String[] subSyrupArr = subSyrupStr.split(",");
             for (int j = 0; j < subSyrupArr.length; j++) {
                 if (i == 0) {
@@ -371,15 +360,11 @@ public class Controller {
         filteredBaseToppingSyrup.addAll(baseResult);
         filteredBaseToppingSyrup.addAll(toppingResult);
         filteredBaseToppingSyrup.addAll(syrupResult);
-        System.out.println("filteredBaseToppingSyrup 갯수 " + filteredBaseToppingSyrup.size());
         ArrayList<String> matchedAll = new ArrayList<>(); // 베이스,토핑,시럽 교집합인 결과값
         ArrayList<String> finalResult = new ArrayList<>(); // 중복제거된 최종 결과값
-
-        // TODO : 같은 베이스/토핑/시럽 내에서 교집합이 구해지지 않고 있음
         int baseResultSize = baseResult.size();
         int toppingResultSize = toppingResult.size();
         int syrupResultSize = syrupResult.size();
-
         // 교집합) 베이스,토핑,시럽 중 몇개 선택했는지 판단
         int choosedNum = 0;
         if (baseResultSize != 0 && toppingResultSize != 0 && syrupResultSize != 0) {
@@ -393,7 +378,6 @@ public class Controller {
                 || baseResultSize == 0 && toppingResultSize == 0 && syrupResultSize != 0) {
             choosedNum = 1;
         }
-        System.out.println("베이스,토핑,시럽 중 " + choosedNum + "개 선택");
         switch (choosedNum) {
             case 1:
                 for (int i = 0; i < filteredBaseToppingSyrup.size(); i++) { // 교집합 추출
@@ -423,7 +407,6 @@ public class Controller {
                 System.out.println("선택 오류");
                 break;
         }
-        System.out.println("matchedAll 갯수 " + matchedAll.size());
 
         // 중복제거
         for (int i = 0; i < matchedAll.size(); i++) {
@@ -432,7 +415,6 @@ public class Controller {
                 finalResult.add(isDuplicated);
             }
         }
-        System.out.println("finalResult 갯수 " + finalResult.size());
         //// 최종출력 ) 출력부분은 View로 옮기기
         int finalResultSize = finalResult.size();
         System.out.println("총 " + finalResultSize + "개의 플레이버가 검색되었습니다.");

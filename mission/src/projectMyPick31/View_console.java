@@ -1,5 +1,6 @@
 package projectMyPick31;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // View : 화면 표시요소를 담당.
@@ -45,23 +46,21 @@ public class View_console {
         return input;
     }
 
-    void printSignatures(){
-        // 여기서 오류 발생.
+    void printSignatures(ArrayList<String> allSignatures){
         System.out.println("시그니처 플레이버를 조회합니다.");
-        int allSignaturesSize = model.allSignatures.size();
-        System.out.println(allSignaturesSize);
+        int allSignaturesSize = allSignatures.size();
         for (int i = 0; i < allSignaturesSize; i++) {
-            System.out.println(model.allSignatures.get(i));
+            System.out.println(allSignatures.get(i));
         }
         System.out.println("전체 시그니처 플레이버 " + allSignaturesSize +  "개를 출력했습니다.");
     }
 
-    void printSeasons(){
+    void printSeasons(ArrayList<String> allSeasons){
         System.out.println("시즌 플레이버를 조회합니다.");
-        int allSeasonsSize = model.allSeasons.size();
+        int allSeasonsSize = allSeasons.size();
         System.out.println(allSeasonsSize);
         for (int i = 0; i < allSeasonsSize; i++) {
-            System.out.println(model.allSeasons.get(i));
+            System.out.println(allSeasons.get(i));
         }
         System.out.println("전체 시즌 플레이버 " + allSeasonsSize +"개를 출력했습니다.");
     }
